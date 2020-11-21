@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home Page</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <!--link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"-->
+    <script src = "../js/jquery-3.5.1.js"></script>
+    <script src = "../layui/layui.js"></script>
+    <script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <!--导航栏-->
+    <div class="layui-header layui-bg-green">
+        <a href="https://www.drew.edu">
+            <img src="../Drew.png" height="24" width="102" alt="DREW" style="padding: 15px"/>
+        </a>
+        <ul class = "layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="">Messages<span class="layui-badge">2</span></a>
+            </li>
+            <li class = "layui-nav-item">
+                <a href="javascript:">
+                    <img src = "../Admin.jpg" class="layui-nav-img" alt="User Image">
+                    Administrator
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">Personal Profiles</a></dd>
+                    <dd><a href="../Login_Page.html">Sign Out</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <!--侧边导航栏-->
+    <div class = "layui-side layui-bg-gray">
+        <div class = "layui-side-scroll">
+            <ul class = "layui-nav layui-nav-tree layui-bg-green">
+                <li class = "layui-nav-item">
+                    <a class = "" href = "AdminHomePage.html">AdminHOmePage2</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class = " " href = "AdminFacultyManagement.html">Faculty Management</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--内容主题区域-->
+    <div class="layui-body" hidden>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>Drew Action Scholars program</legend>
+        </fieldset>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <table border="1" width="1350">
+                    <!--Heading-->
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Active</th>
+                        <th>Receptive</th>
+                        <th>Required</th>
+                    </tr>
+
+
+
+                </table>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <table border="1" width="1350">
+                    <!--Heading-->
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Required</th>
+                        <th>Active</th>
+                        <th>Receptive</th>
+                    </tr>
+                    <!--First Row-->
+                    <tr>
+                        <td>Jack Ma</td>
+                        <td>
+                            <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                <div class="layui-progress-bar layui-bg-orange" lay-percent="90%"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                <div class="layui-progress-bar layui-bg-orange" lay-percent="70%"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                <div class="layui-progress-bar layui-bg-orange" lay-percent="70%"></div>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </div>
+        </div>
+        <div class="layui-row">
+
+        </div>
+    </div>
+    <div class="layui-col-md12" style="margin-left: 10px;margin-top: 20px">
+
+        <!--实时数据接口-->
+
+        <table id="a_student"></table>
+
+        <table lay-filter="demo">
+            <thead>
+            <tr>
+                <th lay-data="{field:'Date',width:150,sort:true}">Date</th>
+                <th lay-data="{field:'Hour',width:80}">Hours</th>
+                <th lay-data="{field:'Description',width:250}">Description</th>
+                <th lay-data="{field:'Type',width:150,sort:true}">Type</th>
+                <th lay-data="{field:'Goals',width:250}">Goals</th>
+                <th lay-data="{field:'approve',width:200}">Approve</th>
+                <th lay-data="{field:'Addition',width:450}">Reflection</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2020-09-13</td>
+                <td>2</td>
+                <td>Political Advocacy or Engagement</td>
+                <td>Active Hour</td>
+                <td>Value empathy, understanding and responsiveness to diverse others in their work and public roles.</td>
+                <td><button>Approve</button><button>Disapprove</button></td>
+                <td>Reflection_</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <script>
+        layui.use(['element','laydate','form','layer','table'],function () {
+            var element = layui.element;
+            var table = layui.table;
+
+            table.init('demo', {
+                height: 900,
+                width: 1330,
+            });
+
+            table.render({
+                elem:'a_student',
+                height: 400,
+                cellMinWidth:80,
+                url: null,
+                cols:[[
+                    {field:'Date',title:'Date',width:80, sort:true,fixed:'left'},
+                    {field:'Hours',title:'Hours',width:80},
+                    {field: 'Description_of_Activity',title: 'Description of Activity',width: 150},
+                    {field:'Type', title: 'Type',width: 80,sort: true},
+                    {field:'Learning_goals', title: 'Learning Goals', width: 150},
+                    {field: 'Addition',title:'Reflection',width: 150},
+                    {field: 'approve',title:'Reflection',width: 150},
+                ]]
+            })
+
+
+        });
+    </script>
+
+</div>
+
+<script src = "../js/jquery-3.5.1.js"></script>
+<script src = "../layui/layui.js"></script>
+<script>
+    layui.use(['element'],function () {
+        var element = layui.element;
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drew Scholar System</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script src = "js/jquery-3.5.1.js"></script>
+    <script src = "layui/layui.js"></script>
+    <link rel="stylesheet" href="/public/IG/IG/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href = "/public/IG/IG/layui/css/modules/laydate/default/laydate.css"></link>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+
+<body>
+    <section>
+        <!-- update the version number as needed -->
+        <script src="/__/firebase/6.2.0/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/6.2.0/firebase-auth.js"></script>
+        <script defer src="/__/firebase/6.2.0/firebase-firestore.js"></script>
+
+        <!-- initialize the SDK after all desired features are loaded -->
+        <script defer src="/__/firebase/init.js"></script>
+    </section>
+</body>
+<section id="headbar" style="" hidden="true" class="layui-layout layui-layout-admin">
+    <div class="layui-header layui-bg-green headbar2" >
+        <!--        <a href="https://www.drew.edu">-->
+        <!--            <img src="/public/Drew.png" height="24" width="102" alt="DREW" style="padding: 15px"/>-->
+        <!--        </a>-->
+
+        <ul class = "layui-nav layui-bg-green ">
+            <img class="layui-nav-img" src="" alt="User Image" id="userImg">
+            <li class = "layui-nav-item" id="username"></li>
+
+            <li class = "layui-nav-item layui-layout-right">
+                <a href="javascript:">
+                    <p id="userDetails"></p>
+                    <dl class="layui-nav-child">
+                        <dd><a id="getOutbtn">Sign Out</a></dd>
+
+<!--                        <dd><a id="facultyApprovebtn">Submission </a></dd>-->
+<!--                        <dd><a id="facultyStudentbtn">Overview</a></dd>-->
+                    </dl>
+                </a>
+
+            </li>
+
+
+        </ul>
+    </div>
+</section><!--原本是 hidden="true"-->
+
+    <div class="container"   id="whenSignedOut" style="background: black"><!-- 原本无 hidden wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-->
+<!--        <button id="signInBtn" class="btn btn-primary" >Sign in with Google</button>-->
+        <div class="center"  >
+            <div class="wrap">
+                <button id="signInBtn" class="button" >Sign in with Google</button>
+            </div>
+        </div>
+    </div>
+
+    <section id="whenSignedIn" hidden="true"><!--原本是 hidden="true"-->
+
+
+        <div hidden id="tthours"></div>
+        <div hidden id="tthours2"></div>
+        <h6 hidden style="color: red" id="storeDocumentCount"></h6>
+        <h6 hidden style="color: red" id="storeDocumentCount2"></h6>
+        <br>
+        <div hidden id="debug"></div>
+<!--        <a id="goAdmin" hidden="true" href="Admin/adminindex.html">GO to admin page</a>-->
+<!--        <a id="goFaculty" hidden="true" href="Faculty/facultyindex.html">GO to faculty page</a>-->
+<!--        <a id="goStudent" hidden="true" href="Student/studentindex.html">GO to student page</a>-->
+
+        <button hidden id="signOutBtn" class="btn-primary">Sign Out</button>
+        <button hidden id="testthis" class="btn-primary" >test this</button>
+
+<!--        <input id='hoursinput' type='number' class="input" placeholder="How many hours"/>-->
+<!--        <input id='activityinput' type='text' class="input" placeholder="what activity"/>-->
+<!--        <input id='descriptioninput' type='text' class="input" placeholder="what description"/>-->
+        <section hidden>
+            <h1 id='tt'></h1>
+            <button id="createThing" class="btn btn-success"></button>
+
+            <ul id="adminlist"></ul>
+            <p></p>
+            <ul id="thingsList">
+            </ul>
+        </section>
+    </section>
+
+
+
+<!--原本是 无 hidden="true" ^^^^^^^^-->
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+
+
+
+
+<section hidden="true" id="adminLogin" class="layui-layout-body">
+
+    <!--侧边导航栏-->
+    <div class = "layui-side layui-bg-gray animate__animated animate__slideInLeft order2" style="margin-top: 60px">
+        <div class = "layui-side-scroll">
+            <ul class = "layui-nav layui-nav-tree layui-bg-green">
+                <li class="layui-nav-item">
+                    <div class="layui-btn-container">
+                        <a hidden="true" target="_blank"  href="https://console.firebase.google.com/u/3/project/combine2-2ae69/firestore/data~2Ffaculty~2Fgamingmaxor@gmail.com">Management</a>
+                        <button  id="showfacultyBtn" class="layui-btn  layui-btn-fluid">Faculty List</button>
+                        <button  id="showStudentBtn" class="layui-btn  layui-btn-fluid">Overview</button>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <!--内容主题区域 overall student-->
+    <div id="tablehead" hidden="true" class = "layui-body animate__animated animate__slideInDown " style="margin-top: 60px;padding: 1rem"  >
+        <div class="layui-row" >
+            <div class="layui-col-md12">
+                <table  style="width: 100%" >
+                    <tr>
+                        <th>Name     </th>
+                        <th>Active   </th>
+                        <th>Receptive</th>
+                        <th>Required </th>
+                    </tr>
+                </table>
+                <table border="1" style="width: 100%" id="table">
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--内容主题区域 faculty student-->
+    <div  id="facultyOverview"  class = "layui-body animate__animated animate__slideInDown " style="margin-top: 60px;padding: 1rem">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>Faculty</legend>
+        </fieldset>
+        <div style="padding: 20px; background-color: #F2F2F2;">
+            <ul class="layui-row layui-col-space15" id="facultyTap">
+
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+</section>
+
+<section  hidden="true" id="facultyLogin"  class="layui-layout-body"> <!--原本是 hidden="true"-->
+    <!--侧边导航栏-->
+    <div class = "layui-side layui-bg-gray animate__animated animate__slideInLeft order2"  style="margin-top: 60px">
+        <div class = "layui-side-scroll">
+            <ul class = "layui-nav layui-nav-tree layui-bg-green">
+                <li class = "layui-nav-item">
+                    <div class="layui-btn-container">
+                        <button class="layui-btn  layui-btn-fluid" id="studentOverviewBtn2">Overview</button>
+                        <button class="layui-btn  layui-btn-fluid" id="studentOverviewBtn">Approve</button>
+                        <button class="layui-btn  layui-btn-fluid" id="changeStudentEvent">Event Change</button>
+                        <button class="layui-btn  layui-btn-fluid" id="checkEachStudent">Student detail</button>
+                    </div>
+
+                </li>
+<!--                approve-->
+                <li class="layui-nav-item animate__animated animate__fadeInRight">
+                    <a hidden="true" target="_blank"  href="https://console.firebase.google.com/u/3/project/combine2-2ae69/firestore/data~2FSTUDENT~2F48EiUCcUi6muxeoSgvmO">Management</a>
+                    <div id="facultybtnhidden" hidden class=" animate__animated animate__fadeInRight">
+                        <div class="">
+                            <a id="clearbtn"  class="layui-btn layui-btn-normal" style="width: 100%"> Clear </a>
+                        </div>
+                        <div class="">
+                            <input id="uidinput" type="text"  required  placeholder="Put the Uid here"  class="layui-input">
+                        </div>
+                        <div class="">
+                            <a id="approvebtn"  class="layui-btn layui-btn-warm"  style="width: 100%">Approve</a>
+                        </div>
+                        <div class="">
+                            <a id="rejectbtn"  class="layui-btn layui-btn-danger"  style="width: 100%"> Reject </a>
+                        </div>
+                    </div>
+                </li>
+<!--                change event-->
+                <li class="layui-nav-item animate__animated animate__fadeInRight">
+                    <div id="facultyInfochange" hidden class=" animate__animated animate__fadeInUp">
+                        <div class="">
+                            <a id="facultyDeletebtn"  class="layui-btn layui-btn-normal" style="width: 100%"> Delete </a>
+                        </div>
+                        <div class="">
+                            <input id="facultyuidinput" type="text"  required  placeholder="Put the Uid here"  class="layui-input">
+                        </div>
+                        <div class="">
+                            <a id="pull"  class="layui-btn layui-btn-warm"  style="width: 100%">Pull</a>
+                        </div>
+                        <div class="">
+                            <a id="facultyChangeSubmit"  class="layui-btn layui-btn-danger"  style="width: 100%"> Change Submit </a>
+                        </div>
+                        <div class="">
+                            <a id="cleanSubmit"  class="layui-btn-primary"  style="width: 100%"> Clean form </a>
+                        </div>
+                    </div>
+                </li>
+                <!-- search specify student-->
+                <li class="layui-nav-item animate__animated animate__fadeInRight">
+                    <div id="indivualStudentWholeHistoryTap" hidden class=" animate__animated animate__fadeInUp">
+
+                        <div class="">
+                            <input id="uidForStudentHistory" type="text"  required  placeholder="Put the Uid here"  class="layui-input">
+                        </div>
+                        <div class="">
+                            <a id="getStudentAllHistory"  class="layui-btn layui-btn-warm"  style="width: 100%">Pull</a>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--内容主题区域 approve 区 -->
+    <div class = "layui-body animate__animated animate__zoomInRight" hidden='true' id="approveArea" style="padding: 10px"><!-- Approve area-->
+        <div class="layui-row" style="margin-top: 1px">
+
+            <div class="layui-col-md11" style="margin-top: 3rem">
+                <ul id = "approvePlace">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--内容主题区域 修改信息区 -->
+    <div class = "layui-body animate__animated animate__zoomInRight" hidden='true' id="changestudentdata" style="padding: 10px"><!-- Approve area-->
+        <div class="layui-row" style="margin-top: 4rem">
+            <div class="layui-col-md8">
+                <div class ="layui-col-md12 layui-bg-gray animate__animated animate__zoomInDown" style="padding: 5px">
+                    <form class="layui-form " action="">
+                        <div class="layui-form-item  order6 w3-animate-opacity w3-animate-right " style="margin-right: 5px;margin-left: 5px;margin-top: 2px">
+                            <div class="layui-inline">
+                                <label  class="layui-form-label" >Date</label>
+                                <div class="layui-input-inline">
+                                    <input type="date" class="layui-input" id="datestudentChange">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline" >
+                                <label  class="layui-form-label">Hours</label>
+                                <div class="layui-input-inline">
+                                    <input type="number" class="layui-input"  id="hoursInputChange"  >
+                                </div>
+                            </div>
+
+                            <div class="layui-inline" >
+                                <label class="layui-form-label">Mentor email</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="title" id="selectMentorChange" required lay-verify="required" placeholder="Email" autocomplete="on" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-inline" >
+                                <label class="layui-form-label">status</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="title" id="facultystauts" required lay-verify="required" placeholder="" autocomplete="on" class="layui-input">
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class = "layui-row  order5 w3-animate-opacity w3-animate-right" style="margin-left: 5px; margin-right: 5px">
+                            <div class="layui-col-md12">
+                                <form class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">Description of Activity</label>
+                                        <div class="layui-input-block">
+                                            <select name="Description" lay-filter="" id="descriptionchange">
+                                                <option value="">Please Choose</option>
+                                                <option value="Attendance at required events">Attendance at required events</option>
+                                                <option value="Drew Honduras Project(DHP)">Drew Honduras Project(DHP)</option>
+                                                <option value="Drew Student Voter Project(DSVP)">Drew Student Voter Project(DSVP)</option>
+                                                <option value="Changebuilder Program">Changebuilder Program</option>
+                                                <option value="Project Pericles Debating for Democracy Team">Project Pericles Debating for Democracy Team</option>
+                                                <option value="UPitch Business Development Team">UPitch Business Development Team</option>
+                                                <option value="Federal Community Work Study">Federal Community Work Study</option>
+                                                <option value="Community-Based Learning Project or Placement">Community-Based Learning Project or Placement</option>
+                                                <option value="Alternative Break Trip">Alternative Break Trip</option>
+                                                <option value="Lecture, Panel Discussion, Webinar, Screening, Performance">Lecture, Panel Discussion, Webinar, Screening, Performance</option>
+                                                <option value="Political Advocacy or Engagement">Political Advocacy or Engagement</option>
+                                                <option value="Diversity, Inclusion/Anti-Racism Facilitated Dialogues and WorkShops">Diversity, Inclusion/Anti-Racism Facilitated Dialogues and WorkShops</option>
+                                                <option value="Interfaith Training and Workshops(Center for Religion, Culture and Conflict)">Interfaith Training and Workshops(Center for Religion, Culture and Conflict)</option>
+                                                <option value="Participation in Student Government">Participation in Student Government</option>
+                                                <option value="Other(add description below)">Other(add description below)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item  order4 w3-animate-opacity w3-animate-right">
+
+                            <div class="layui-col-md12">
+                                <form class="layui-form">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">Type of learning hours:</label>
+                                        <div class="layui-input-block">
+                                            <select name="Description" lay-filter="" id="typeOfLearningHoursChange">
+                                                <option value="">Please Choose</option>
+                                                <option value="Active (not requiring preapproval)">Active (not requiring preapproval)</option>
+                                                <option value="Active (preapproved)">Active (preapproved)</option>
+                                                <option value="Receptive">Receptive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item  order3 w3-animate-opacity w3-animate-right" pane="">
+                            <label class="layui-form-label">Which program learning goals does this activity help fulfill? Check all that apply</label>
+                            <br>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="Gain" lay-skin="primary" id="Gainchange">
+                                <label for="Gain">Gain confidence and skills to identify, define and tackle complex problems that impact communities and transcend borders</label>
+                                <br>
+                                <input type="checkbox" name="Value" lay-skin="primary" id="Valuechange">
+                                <lable for ="Value">Value empathy, understanding and responsiveness to diverse others in their work and public roles.</lable>
+                                <br>
+                                <input type="checkbox" name="Explore" lay-skin="primary" id="Explorechange">
+                                <label for="Explore">Explore and take action on solutions to real-world problems that fulfill the goals of social impact, financial viability, and environmental sustainability</label>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item    order2 w3-animate-right w3-animate-opacitylayui-form-text">
+                            <label class="layui-form-label">Describe how the experiential learning hours were spent. Reflect on how this activity is aligned with the program's learning goals. (150-250 words)</label>
+                            <div class="layui-input-block">
+                                <textarea placeholder="Your Answer" class="layui-textarea" id="studentTextAreaChange"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="layui-col-md12 order1 w3-animate-opacity w3-animate-right" align="center">
+
+                            <div class="layui-col-md4 layui-col-lg-offset2">
+                                <input type="button" style="margin-right: 30%" align="right" class="layui-btn  layui-btn-normal layui-btn-fluid" value="Change" id="studentSubmitchange">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <script src = "/public/IG/IG/js/jquery-3.5.1.js"></script>
+                <script src = "/public/IG/IG/layui/layui.js"></script>
+                <script src = "/public/IG/IG/layui/css/modules/laydate/default/laydate.css"></script>
+                <script>
+                    layui.use(['element','laydate','form','layer'],function () {
+                        var element = layui.element,
+                            laydate = layui.laydate,
+                            form = layui.form,
+                            layer = layui.layer;
+
+                        form.render();
+
+                        laydate.render({
+                            elem: "Active_date",
+                            type: "date",
+                            lang: "en",
+                            format: "yyyy-MM-dd",
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+    </div>
+    <!--内容主题区域 overview -->
+    <div id='studentlistArea' class="layui-body animate__animated animate__slideInDown order2" style="margin-top: 30px" >
+        <!-- overview  facultyStudentTable -->
+        <div style="margin-top: 40px" class="layui-col-md8">
+            <div >
+                <div style="padding: 0px 15px 0px 15px; background-color: #F2F2F2;">
+                    <div class="layui-row layui-col-space6">
+                        <div class="layui-col-md3">
+                            <div class="layui-card ">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Name
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Active
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Receptive
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="facultyStudentTable2"></div>
+        </div>
+
+    </div>
+
+    <!--内容主题区域 student detail 4 -->
+    <div id='studentdetail' hidden='true' class="layui-body animate__animated animate__slideInDown" style="margin-top: 30px" >
+        <!-- overview  facultyStudentTable -->
+        <!-- Name title -->
+        <div class="layui-row">
+            <div style="margin-top: 40px" class="layui-col-md1">
+                <div style="padding: 0px 15px 0px 15px; background-color: #f2f2f2;">
+                    <div class="layui-row layui-col-space6">
+                        <div class="layui-col-md12">
+                            <div class="layui-card ">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Name
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="facultyStudentOverviewTable" style="">
+
+                </div>
+
+            </div>
+            <div class="layui-col-md8" >
+                <div id="thatStudentHistoryList" style="margin-top: 3rem">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section hidden="true"  id="studentLogin" >
+    <section>
+            <!--Progress bar-->
+            <div class="layui-row layui-col-space15 " style="padding-left: 3rem; padding-right: 3rem; align-items: center; ">
+                <!--row one-->
+                <div class="layui-col-md4"  id="row1" hidden="true"></div>
+                <div class="layui-col-md4" id="row2" hidden="true">
+                    <div class="layui-row layui-col-space10" style="background: #ea0000; padding: 10px; width:40%">
+                        <div class = "layui-col-md" style="color: white">Extra Times:</div>
+                        <div class = "layui-col-md" style="color: white" id='overtime'></div>
+                    </div>
+                </div>
+                <div class="layui-col-md4" id="row3" hidden="true"></div>
+                <!--row two hours bar-->
+                <div class=" animate__animated animate__fadeInDown forHourbar1 layui-col-md4  ">
+                    <div class="layui-row">
+                        <div class = "">Required</div>
+                        <div style="background-color: #dedede;border-radius:12px">
+                            <div class="w3-deep-purple w3-center" style="height:24px; width:12% ;border-radius:12px" id='requiredbar'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate__animated animate__fadeInDown forHourbar2 layui-col-md4  ">
+                    <div class="layui-row">
+                        <div class = "">Active</div>
+                        <div style="background-color: #dedede;border-radius:12px">
+                            <div class="w3-orange w3-center" style="height:24px; width:12% ;border-radius:12px" id='activedbar'></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate__animated animate__fadeInDown forHourbar3 layui-col-md4  ">
+                    <div class="layui-row">
+                        <div class = "">Receptive</div>
+                        <div style="background-color: #dedede;border-radius:12px">
+                            <div class="w3-teal w3-center" style="height:24px; width:12% ;border-radius:12px" id='receptivebar'></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        <!--Event Submission-->
+        <fieldset class="layui-elem-field layui-field-title animate__animated animate__fadeInRightBig order5" style="margin-top: 5px;"><legend>Event Submission</legend></fieldset>
+        <div class ="layui-col-md12 layui-bg-gray animate__animated animate__zoomInDown" style="padding: 5px">
+            <form class="layui-form " action="">
+                <div class="layui-form-item  order6 w3-animate-opacity w3-animate-right " style="margin-right: 5px;margin-left: 5px;margin-top: 2px">
+                    <div class="layui-inline">
+                        <label id="datelabel" class="layui-form-label" >Date</label>
+                        <div class="layui-input-inline">
+                            <input type="date" class="layui-input" id="datestudent">
+                        </div>
+                    </div>
+
+                    <div class="layui-inline" >
+                        <label id='hoursinputlabel' class="layui-form-label">Hours</label>
+                        <div class="layui-input-inline">
+                            <input type="number" min=0 max=20 class="layui-input"  id="hoursInput"  >
+                        </div>
+                    </div>
+
+                    <div class="layui-inline" >
+                        <label class="layui-form-label">Mentor email</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" id="selectMentor" required lay-verify="required" placeholder="Email" autocomplete="on" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-inline" >
+                        <label class="layui-form-label">Update uid</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="title" id="studentUpdate"   placeholder="20 digit uid" autocomplete="off" class="layui-input">
+                        </div>
+                        <button type="button" id="submitUpdate" class="layui-btn layui-btn-primary">Modify</button>
+                        <button type="button" id="submitdelete" class="layui-btn layui-btn-primary">Delete</button>
+                    </div>
+
+
+                </div>
+
+                <div class = "layui-row  order5 w3-animate-opacity w3-animate-right" style="margin-left: 5px; margin-right: 5px">
+                    <div class="layui-col-md12">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">Description of Activity</label>
+                                <div class="layui-input-block">
+                                    <select name="Description" lay-filter="" id="description">
+                                        <option value="">Please Choose</option>
+                                        <option value="Attendance at required events">Attendance at required events</option>
+                                        <option value="Drew Honduras Project(DHP)">Drew Honduras Project(DHP)</option>
+                                        <option value="Drew Student Voter Project(DSVP)">Drew Student Voter Project(DSVP)</option>
+                                        <option value="Changebuilder Program">Changebuilder Program</option>
+                                        <option value="Project Pericles Debating for Democracy Team">Project Pericles Debating for Democracy Team</option>
+                                        <option value="UPitch Business Development Team">UPitch Business Development Team</option>
+                                        <option value="Federal Community Work Study">Federal Community Work Study</option>
+                                        <option value="Community-Based Learning Project or Placement">Community-Based Learning Project or Placement</option>
+                                        <option value="Alternative Break Trip">Alternative Break Trip</option>
+                                        <option value="Lecture, Panel Discussion, Webinar, Screening, Performance">Lecture, Panel Discussion, Webinar, Screening, Performance</option>
+                                        <option value="Political Advocacy or Engagement">Political Advocacy or Engagement</option>
+                                        <option value="Diversity, Inclusion/Anti-Racism Facilitated Dialogues and WorkShops">Diversity, Inclusion/Anti-Racism Facilitated Dialogues and WorkShops</option>
+                                        <option value="Interfaith Training and Workshops(Center for Religion, Culture and Conflict)">Interfaith Training and Workshops(Center for Religion, Culture and Conflict)</option>
+                                        <option value="Participation in Student Government">Participation in Student Government</option>
+                                        <option value="Other(add description below)">Other(add description below)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="layui-form-item  order4 w3-animate-opacity w3-animate-right">
+
+                    <div class="layui-col-md12">
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">Type of learning hours:</label>
+                                <div class="layui-input-block">
+                                    <select name="Description" lay-filter="" id="typeOfLearningHours">
+                                        <option value=''>Please Choose</option>
+                                        <option value="Active (not requiring preapproval)">Active (not requiring preapproval)</option>
+                                        <option value="Active (preapproved)">Active (preapproved)</option>
+                                        <option value="Receptive">Receptive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="layui-form-item  order3 w3-animate-opacity w3-animate-right" pane="">
+                    <label class="layui-form-label">Which program learning goals does this activity help fulfill? Check all that apply</label>
+                    <br>
+                    <div class="layui-input-block">
+                        <input type="checkbox" name="Gain" lay-skin="primary" id="Gain">
+                        <label for="Gain">Gain confidence and skills to identify, define and tackle complex problems that impact communities and transcend borders</label>
+                        <br>
+                        <input type="checkbox" name="Value" lay-skin="primary" id="Value">
+                        <lable for ="Value">Value empathy, understanding and responsiveness to diverse others in their work and public roles.</lable>
+                        <br>
+                        <input type="checkbox" name="Explore" lay-skin="primary" id="Explore">
+                        <label for="Explore">Explore and take action on solutions to real-world problems that fulfill the goals of social impact, financial viability, and environmental sustainability</label>
+                    </div>
+                </div>
+
+                <div class="layui-form-item    order2 w3-animate-right w3-animate-opacitylayui-form-text">
+                    <label class="layui-form-label">Describe how the experiential learning hours were spent. Reflect on how this activity is aligned with the program's learning goals. (150-250 words)</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="Your Answer" class="layui-textarea" id="studentTextArea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12 order1 w3-animate-opacity w3-animate-right" align="center">
+
+                    <div class="layui-col-md4 layui-col-lg-offset2">
+                        <input type="button" style="margin-right: 30%" align="right" class="layui-btn  layui-btn-normal layui-btn-fluid" value="Submit" id="studentSubmit">
+
+                    </div>
+                    <div class="layui-col-md3">
+                        <a href="https://www.drew.edu" target="_blank">Looking for opportunities? Click Me!</a>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+        </div>
+        <script src = "../js/jquery-3.5.1.js"></script>
+        <script src = "../layui/layui.js"></script>
+        <script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+        <script>
+            layui.use(['element','laydate','form','layer'],function () {
+                var element = layui.element,
+                    laydate = layui.laydate,
+                    form = layui.form,
+                    layer = layui.layer;
+
+                form.render();
+
+                laydate.render({
+                    elem: "Active_date",
+                    type: "date",
+                    lang: "en",
+                    format: "yyyy-MM-dd",
+                });
+            });
+        </script>
+
+        <!--<script defer src='/public/IG/IG/index.js'></script>-->
+        </section>
+        <div class="layui-row "  style="margin-top: 20px">
+            <div class="layui-col-md11">
+                <!--中间导航栏-->
+                <fieldset class="layui-elem-field layui-field-title">
+                    <legend class="animate__animated animate__fadeInRightBig order3">Event History</legend>
+                </fieldset>
+                <ul class="layui-tab-title animate__animated animate__fadeIn">
+                    <li class="layui-this">
+                        <input value="All" type="button" id='Allhistory' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
+                    <li><input value="Approved" type="button" id='approvedHistory'  class="layui-btn  layui-btn-primary layui-btn-fluid"> </li>
+                    <li><input value="Rejected" type="button" id='rejectedHistory' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
+                    <li><input value="Pending" type="button"  id='pendingHistory' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
+                    <li><input value="Approved by Default" type="button"  id='DefaultHistory' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
+<!--                    <li><input value="Change Pending Submission" type="button"  id='submissionUpdate' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>-->
+                </ul>
+                <ul id = "eventHistory" class="animate__animated animate__fadeIn" style="padding: 3rem">
+
+                </ul>
+
+                <ul id = "approvalH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+                </ul>
+                <ul id = "rejectedH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+
+                </ul>
+                <ul id = "pendingH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+
+                </ul>
+                <ul id = "defaultH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+
+                </ul>
+
+
+            </div>
+        </div>
+    </section>
+
+
+</html>
+
+<!--<section class="layui-layout layui-layout-admin">-->
+    <!--        <script>-->
+    <!--            layui.use(['element'],function () {-->
+    <!--                var element = layui.element;-->
+    <!--            });-->
+    <!--        </script>-->
+    <!--        &lt;!&ndash;导航栏&ndash;&gt;-->
+
+
+    <!--        &lt;!&ndash;侧边导航栏&ndash;&gt;-->
+    <!--&lt;!&ndash;        <div class = "layui-side layui-bg-gray">&ndash;&gt;-->
+    <!--&lt;!&ndash;            <div class = "layui-side-scroll">&ndash;&gt;-->
+    <!--&lt;!&ndash;                <ul class = "layui-nav layui-nav-tree layui-bg-green">&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <li class = "layui-nav-item">&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <a class = "" >Home Page</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <li class = "layui-nav-item layui-nav-itemed">&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <li class = "layui-nav-item">&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <a class = "" >New Submission</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+    <!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+    <!--&lt;!&ndash;            </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+
+    <!--        &lt;!&ndash;内容主题区域&ndash;&gt;-->
+    <!--        <div  class = "layui-body" id="facultyOverview">-->
+    <!--            <div class="layui-row" style="padding: 15px">-->
+    <!--                <div class="layui-collapse" id="listOfstudent">-->
+
+
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <script>-->
+    <!--                layui.use(['element','laydate','form','layer','table'],function () {-->
+    <!--                    var element = layui.element;-->
+    <!--                    var table = layui.table;-->
+
+    <!--                    table.init('demo', {-->
+    <!--                        height: 315,-->
+    <!--                        width: 1330,-->
+    <!--                    });-->
+
+    <!--                    table.render({-->
+    <!--                        elem:'a_student',-->
+    <!--                        height: 400,-->
+    <!--                        cellMinWidth:80,-->
+    <!--                        url: null,-->
+    <!--                        cols:[[-->
+    <!--                            {field:'Date',title:'Date',width:80, sort:true,fixed:'left'},-->
+    <!--                            {field:'Hours',title:'Hours',width:80},-->
+    <!--                            {field: 'Description_of_Activity',title: 'Description of Activity',width: 150},-->
+    <!--                            {field:'Type', title: 'Type',width: 80,sort: true},-->
+    <!--                            {field:'Learning_goals', title: 'Learning Goals', width: 150},-->
+    <!--                            {field: 'approve',title:'Approve',width: 150},-->
+    <!--                            {field: 'Addition',title:'Reflection',width: 150},-->
+
+    <!--                        ]]-->
+    <!--                    })-->
+
+
+    <!--                });-->
+    <!--            </script>-->
+    <!--        </div>-->
+
+    <!--        &lt;!&ndash;内容主题区域&ndash;&gt;-->
+    <!--        <div  class = "layui-body"  style="padding: 5px" id="facultyseeStudentdetail">-->
+
+    <!--            <div>-->
+    <!--&lt;!&ndash;            &lt;!&ndash;学生姓名&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;            <fieldset class="layui-elem-field layui-field-title">&ndash;&gt;-->
+    <!--&lt;!&ndash;                <legend>A Student</legend>&ndash;&gt;-->
+    <!--&lt;!&ndash;            </fieldset>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;            &lt;!&ndash;Track Bar&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;            <div class="layui-col-md12" style="margin-left: 10px">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <div class="layui-col-md4">&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <div class = "layui-col-md1">Required</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <div class="layui-col-md6 layui-col-lg-offset1">&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <div class="w3-grey w3-center" style="height:14px; width:12% ;border-radius:12px" ></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <div class="layui-col-md4">&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <div class = "layui-col-md1">Active</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <div class="layui-col-md6 layui-col-lg-offset1">&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <div class="w3-grey w3-center" style="height:14px; width:12% ;border-radius:12px" ></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <div class="layui-col-md4">&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <div class = "layui-col-md1">Receptive</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <div class="layui-col-md6 layui-col-lg-offset1">&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <div class="w3-grey w3-center" style="height:14px; width:12% ;border-radius:12px" ></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;            </div>&ndash;&gt;-->
+    <!--&lt;!&ndash;            &lt;!&ndash;Event Table&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;            <div class="layui-col-md12" style="margin-left: 10px;margin-top: 20px">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                &lt;!&ndash;实时数据接口&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;                &lt;!&ndash;&ndash;&gt;-->
+    <!--&lt;!&ndash;                <table id="tabletable"></table>&ndash;&gt;-->
+    <!--&lt;!&ndash;                &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;                <table lay-filter="demo" id="table">&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <thead>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <th lay-data="{field:'Date',width:150,sort:true}">Date</th>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <th lay-data="{field:'Hour',width:80}">Hours</th>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <th lay-data="{field:'Description',width:250}">Description</th>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <th lay-data="{field:'Type',width:150,sort:true}">Type</th>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <th lay-data="{field:'Goals',width:250}">Goals</th>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <th lay-data="{field:'Approve',width:200}">Approve</th>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <th lay-data="{field:'Addition',width:450}">Reflection</th>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </thead>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <tbody>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <td>2020-09-13</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <td>2</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <td>Political Advocacy or Engagement</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <td>Active Hour</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <td>Value empathy, understanding and responsiveness to diverse others in their work and public roles.</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <td><button>Approve</button><button>Disapprove</button></td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <td>Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection</td>&ndash;&gt;-->
+    <!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                    </tbody>&ndash;&gt;-->
+    <!--&lt;!&ndash;                </table>&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;            </div>&ndash;&gt;-->
+    <!--            </div>  &lt;!&ndash;没用&ndash;&gt;-->
+    <!--        </div>-->
+
+<!--</section>-->

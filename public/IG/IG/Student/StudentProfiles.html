@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section>
+    <!-- update the version number as needed -->
+    <script src="/__/firebase/6.2.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/6.2.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/6.2.0/firebase-firestore.js"></script>
+
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+</section>
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Home Page</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src = "../js/jquery-3.5.1.js"></script>
+    <script src = "../layui/layui.js"></script>
+    <script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+</head>
+<body>
+<!--导航栏-->
+<div class="layui-header layui-bg-green">
+    <a href="https://www.drew.edu">
+        <img src="../Drew.png" height="24" width="102" alt="DREW" style="padding: 15px"/>
+    </a>
+    <ul class = "layui-nav layui-bg-green layui-layout-right">
+        <li class="layui-nav-item">
+            <a href="">Messages<span class="layui-badge">2</span></a>
+        </li>
+        <li class = "layui-nav-item">
+            <a href="javascript:">
+                <img src = "../Student.jpg" class="layui-nav-img" alt="User Image">
+                A Student
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="studentindex.html">Home Page</a> </dd>
+                <dd><a href="StudentEventHistory.html">Event History</a></dd>
+                <dd><a id="StudentsignOutBtn" href="../index.html">Sign Out</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="studentindex.html">Back</a>
+        </li>
+    </ul>
+</div>
+
+<div class="layui-row" style="margin-top: 20px">
+
+    <!--返回-->
+    <div class="layui-col-md1">
+        <a href="studentindex.html" class="layui-btn" style="margin-left:10px "><i class="layui-icon layui-icon-return"></i>Back</a>
+    </div>
+
+    <!--页面主体-->
+    <div class="layui-col-md11">
+
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>Personal Profiles</legend>
+        </fieldset>
+
+        <div class ="layui-col-md9" style="margin-top: 40px;margin-left: 40px;border: solid 2px gray;border-radius: 5%;background-color: #1E9FFF">
+
+            <div style="margin-top: 20px;margin-left: 20px;height: 150px;width: 150px;border-radius: 100%;overflow: hidden;border: solid 2px darkgrey">
+                <a href="">
+                    <img src="../Student.jpg" alt="User Image" style="height: 150px; width: 150px;">
+                </a>
+            </div>
+
+            <br><br>
+
+            <div class="layui-col-md7" style="padding: 20px">
+                <form class="layui-form" action="">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Name: </label>
+                        <div class="layui-input-block">
+                            <input type="text"
+                                   name="title"
+                                   lay-verify="required"
+                                   placeholder="Student Student"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Preference Name: </label>
+                        <div class="layui-input-block">
+                            <input type="text"
+                                   name="title"
+                                   lay-verify="required"
+                                   placeholder="Student"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Email: </label>
+                        <div class="layui-input-block">
+                            <input type="text"
+                                   name="title"
+                                   lay-verify="required"
+                                   placeholder="Student@drew.edu"
+                                   autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Level: </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="">
+                                <option value="">Level</option>
+                                <option value="1">Freshman</option>
+                                <option value="2" selected="">Sophomore</option>
+                                <option value="3">Junior</option>
+                                <option value="4">Senior</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">DAS Mentor: </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="">
+                                <option value="">Select</option>
+                                <option value="Alyssa" selected="">Alyssa</option>
+                                <option value="Cassidy">Cassidy</option>
+                                <option value="Janak">Janak</option>
+                                <option value="Kate">Kate</option>
+                                <option value="Marwa">Marwa</option>
+                                <option value="Melanie">Melanie</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src = "../js/jquery-3.5.1.js"></script>
+<script src = "../layui/layui.js"></script>
+<script defer src='/public/IG/IG/index.js'></script>
+<script>
+    layui.use(['element','form'],function () {
+        var element = layui.element;
+        var form = layui.form;
+
+    })
+</script>
+
+</body>
+</html>

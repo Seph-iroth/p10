@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home Page</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src = "../js/jquery-3.5.1.js"></script>
+    <script src = "../layui/layui.js"></script>
+    <script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <!--导航栏-->
+    <div class="layui-header layui-bg-green">
+        <a href="https://www.drew.edu">
+            <img src="../Drew.png" height="24" width="102" alt="DREW" style="padding: 15px"/>
+        </a>
+        <ul class = "layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="">Messages<span class="layui-badge">2</span></a>
+            </li>
+            <li class = "layui-nav-item">
+                <a href="javascript:">
+                    <img src = "../Admin.jpg" class="layui-nav-img" alt="User Image">
+                    Administrator
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">Personal Profiles</a></dd>
+                    <dd><a id='signOutBtn'  href="../index.html">Sign Out</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <!--侧边导航栏-->
+    <div class = "layui-side layui-bg-gray">
+        <div class = "layui-side-scroll">
+            <ul class = "layui-nav layui-nav-tree layui-bg-green">
+                <li class = "layui-nav-item">
+                    <a class = "" href = "adminindex.html">Home Page</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class = " " href = "AdminFacultyManagement.html">Faculty Management</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--内容主题区域-->
+    <div class="layui-body">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>Drew Action Scholars program</legend>
+        </fieldset>
+
+
+
+    </div>
+
+</div>
+<script src="../index.js"></script>
+<script src = "../js/jquery-3.5.1.js"></script>
+<script src = "../layui/layui.js"></script>
+<script>
+    layui.use(['element'],function () {
+        var element = layui.element;
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fc7a8e60-00d3-4738-833e-38c6620a8a31" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1j96SUQzasklM9iFTgVxCSHOb8D" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/CSCI 340/indivi GUI Bluray" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\CSCI 340\p10\public" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="FacultyHomePage.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/p10/public/IG/IG/Faculty/FacultyHomePage.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.FacultyHomePage.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc7a8e60-00d3-4738-833e-38c6620a8a31" name="Default Changelist" comment="" />
+      <created>1603203959119</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603203959119</updated>
+      <workItem from="1603203960154" duration="18603000" />
+      <workItem from="1604011090894" duration="7207000" />
+      <workItem from="1604022841471" duration="355000" />
+      <workItem from="1604062083267" duration="4050000" />
+      <workItem from="1604070046918" duration="9940000" />
+      <workItem from="1604151477249" duration="10120000" />
+      <workItem from="1604186084348" duration="2202000" />
+      <workItem from="1604328174924" duration="1790000" />
+      <workItem from="1604414563613" duration="26855000" />
+      <workItem from="1604501735385" duration="603000" />
+      <workItem from="1604507809290" duration="13771000" />
+      <workItem from="1604586000270" duration="26808000" />
+      <workItem from="1604676148749" duration="10995000" />
+      <workItem from="1604760998347" duration="26608000" />
+      <workItem from="1604799381891" duration="1205000" />
+      <workItem from="1604852978096" duration="15577000" />
+      <workItem from="1604931893977" duration="26218000" />
+      <workItem from="1605015536636" duration="26857000" />
+      <workItem from="1605106070379" duration="3004000" />
+      <workItem from="1605309274106" duration="11610000" />
+      <workItem from="1605363507220" duration="15854000" />
+      <workItem from="1605541337274" duration="3476000" />
+      <workItem from="1605545566109" duration="6846000" />
+      <workItem from="1605630770213" duration="1657000" />
+      <workItem from="1605657052348" duration="6406000" />
+      <workItem from="1605712734249" duration="12085000" />
+      <workItem from="1605801923968" duration="622000" />
+      <workItem from="1605815637882" duration="18579000" />
+      <workItem from="1605910003940" duration="2819000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="362" y="452" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604719869418">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="362" y="452" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@0.0.2560.1410" timestamp="1604719869418" />
+    <state x="374" y="463" key="FileChooserDialogImpl" timestamp="1604112168767">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="374" y="463" key="FileChooserDialogImpl/0.0.2560.1410/2560.-720.1707.960@0.0.2560.1410" timestamp="1604112168767" />
+    <state width="1303" height="397" key="GridCell.Tab.0.bottom" timestamp="1605746341162">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.0.bottom/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341162" />
+    <state width="1303" height="397" key="GridCell.Tab.0.center" timestamp="1605746341162">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.0.center/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341162" />
+    <state width="1303" height="397" key="GridCell.Tab.0.left" timestamp="1605746341161">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.0.left/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341161" />
+    <state width="1303" height="397" key="GridCell.Tab.0.right" timestamp="1605746341162">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.0.right/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341162" />
+    <state width="1303" height="397" key="GridCell.Tab.1.bottom" timestamp="1605746341162">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.1.bottom/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341162" />
+    <state width="1303" height="397" key="GridCell.Tab.1.center" timestamp="1605746341162">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.1.center/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341162" />
+    <state width="1303" height="397" key="GridCell.Tab.1.left" timestamp="1605746341162">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.1.left/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341162" />
+    <state width="1303" height="397" key="GridCell.Tab.1.right" timestamp="1605746341162">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="1303" height="397" key="GridCell.Tab.1.right/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605746341162" />
+    <state x="1603" y="323" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1605750074345">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1603" y="323" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605750074345" />
+    <state x="1603" y="323" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@0.0.2560.1410" timestamp="1605389070884" />
+    <state x="1603" y="323" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.2560.1410/-3840.-720.1707.960/2560.-730.960.1707@0.0.2560.1410" timestamp="1604540963194" />
+    <state x="1205" y="0" width="1362" height="1417" key="dock-window-1" timestamp="1605915389516">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1273" y="0" width="1294" height="1417" key="dock-window-1/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605735483181" />
+    <state x="1159" y="7" width="1316" height="1417" key="dock-window-1/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@2560.-730.1707.960" timestamp="1605571071794" />
+    <state x="1159" y="7" width="1316" height="1417" key="dock-window-1/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@0.0.2560.1410" timestamp="1605561491833" />
+    <state x="664" y="191" width="1295" height="954" key="dock-window-1/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@2560.-730.1707.960" timestamp="1604940515900" />
+    <state x="1315" y="0" width="1252" height="1417" key="dock-window-1/0.0.2560.1410/-3840.-720.1707.960/2560.-730.960.1707@0.0.2560.1410" timestamp="1604678416879" />
+    <state x="1326" y="25" width="1205" height="1252" key="dock-window-1/0.0.2560.1410/2560.-720.1707.960@0.0.2560.1410" timestamp="1604431754739" />
+    <state x="1181" y="43" width="1205" height="1252" key="dock-window-1/0.0.2560.1410/2560.0.1707.960@0.0.2560.1410" timestamp="1604439929090" />
+    <state x="1273" y="0" width="1294" height="1417" key="dock-window-1/2560.-730.1707.940/-3840.-720.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605817480553" />
+    <state x="1205" y="0" width="1362" height="1417" key="dock-window-1/2560.-730.1707.940/-3840.-721.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605915389516" />
+    <state x="1112" y="0" width="1455" height="1417" key="dock-window-2" timestamp="1605804456664">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1112" y="0" width="1455" height="1417" key="dock-window-2/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605751329273" />
+    <state x="993" y="148" width="1336" height="1366" key="dock-window-2/0.0.2560.1410/-3840.-720.1707.960/2560.-730.960.1707@0.0.2560.1410" timestamp="1604594778489" />
+    <state x="1273" y="0" width="1294" height="1417" key="dock-window-2/0.0.2560.1410/-3840.-720.1707.960/2560.0.1707.960@0.0.2560.1410" timestamp="1604502084617" />
+    <state x="1231" y="0" width="1336" height="1417" key="dock-window-2/0.0.2560.1410/-3840.-720.1707.960/2560.0.1707.960@2560.0.1707.960" timestamp="1604508649495" />
+    <state x="1273" y="0" width="1294" height="1417" key="dock-window-2/0.0.2560.1410/2560.0.1707.960/-3840.-720.1707.960@0.0.2560.1410" timestamp="1604460066994" />
+    <state x="1126" y="123" width="1328" height="1252" key="dock-window-2/0.0.2560.1410/2560.0.1707.960@0.0.2560.1410" timestamp="1604440890046" />
+    <state x="1273" y="0" width="1294" height="1417" key="dock-window-2/0.0.2560.1410/2560.0.2560.1440/-3840.-720.1707.960@0.0.2560.1410" timestamp="1604445838873" />
+    <state x="1112" y="0" width="1455" height="1417" key="dock-window-2/2560.-730.1707.940/-3840.-720.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605804456664" />
+    <state x="1638" y="337" key="run.anything.popup" timestamp="1605320716308">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1638" y="337" key="run.anything.popup/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@0.0.2560.1410" timestamp="1605320716308" />
+    <state x="1638" y="337" key="run.anything.popup/0.0.2560.1410/-3840.-720.1707.960/2560.-730.960.1707@0.0.2560.1410" timestamp="1604606267674" />
+    <state x="1480" y="330" width="672" height="678" key="search.everywhere.popup" timestamp="1605388607692">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1480" y="330" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@0.0.2560.1410" timestamp="1605388607692" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/IG/IG/Student/StudentEventHistory.html</url>
+          <line>116</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

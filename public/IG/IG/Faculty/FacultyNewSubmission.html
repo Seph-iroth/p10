@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Submission</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src = "../js/jquery-3.5.1.js"></script>
+    <script src = "../layui/layui.js"></script>
+    <script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+</head>
+<body>
+
+<div class="layui-layout layui-layout-admin">
+
+    <!--导航栏-->
+    <div class="layui-header layui-bg-green">
+        <a href="https://www.drew.edu">
+            <img src="../Drew.png" height="24" width="102" alt="DREW" style="padding: 15px"/>
+        </a>
+        <ul class = "layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="">Messages<span class="layui-badge">2</span></a>
+            </li>
+            <li class = "layui-nav-item">
+                <a href="javascript:">
+                    <img src = "../Faculty.jpg" class="layui-nav-img" alt="User Image">
+                    A Faculty
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">Personal Profiles</a></dd>
+                    <dd><a id="facultyIndexBtn" href="../index.html">Sign Out</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <!--侧边导航栏-->
+    <div class = "layui-side layui-bg-gray">
+        <div class = "layui-side-scroll">
+            <ul class = "layui-nav layui-nav-tree layui-bg-green">
+                <li class = "layui-nav-item">
+                    <a class = "" href = "facultyindex.html">Home Page</a>
+                </li>
+                <li class = "layui-nav-item layui-nav-itemed">
+                    <a class = "" href = "javascript:">Student list</a>
+                    <dl class = "layui-nav-child">
+                        <dd><a href="FacultyStudentDetails.html">A Student</a> </dd>
+                        <dd><a href="javascript:">B Student</a> </dd>
+                        <dd><a href="javascript:">C Student</a> </dd>
+                        <dd><a href="javascript:">D Student</a> </dd>
+                        <dd><a href="javascript:">E Student</a> </dd>
+                        <dd><a href="javascript:">F Student</a> </dd>
+                        <dd><a href="javascript:">G Student</a> </dd>
+                    </dl>
+                </li>
+                <li class = "layui-nav-item">
+                    <a class = "" href = "FacultyNewSubmission.html">New Submission</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class = "layui-body" style="padding: 20px">
+        <div class = "layui-col-md12">
+
+            <table lay-filter = 'demo'>
+                <thead>
+                <tr>
+                    <th lay-data="{field:'Name',width:100}">Name</th>
+                    <th lay-data="{field:'Date',width:115,sort:true}">Date</th>
+                    <th lay-data="{field:'Hour',width:70}">Hours</th>
+                    <th lay-data="{field:'Description',width:250}">Description</th>
+                    <th lay-data="{field:'Type',width:100,sort:true}">Type</th>
+                    <th lay-data="{field:'Goals',width:250}">Goals</th>
+                    <th lay-data="{field:'Addition',width:300}">Reflection</th>
+                    <th lay-data="{field:'Approval',width:160}">Approval</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>A Student</td>
+                    <td>2020-09-13</td>
+                    <td>2</td>
+                    <td>Political Advocacy or Engagement</td>
+                    <td>Active </td>
+                    <td>Value empathy, understanding and responsiveness to diverse others in their work and public roles.</td>
+                    <td>Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection</td>
+                    <td><button>approve</button><button>disapprove</button></td>
+                </tr>
+                <tr>
+                    <td>B Student</td>
+                    <td>2020-09-27</td>
+                    <td>10</td>
+                    <td>Political Advocacy or Engagement</td>
+                    <td>Active </td>
+                    <td>Value empathy, understanding and responsiveness to diverse others in their work and public roles.</td>
+                    <td>Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection</td>
+                    <td><button>approve</button><button>disapprove</button></td>
+                </tr>
+                <tr>
+                    <td>C Student</td>
+                    <td>2020-10-09</td>
+                    <td>3</td>
+                    <td>Federal Community Work Study</td>
+                    <td>Receptive </td>
+                    <td>Gain confidence and skills to identify, define and tackle complex problems that impact communities and transcend borders</td>
+                    <td>Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection</td>
+                    <td><button>approve</button><button>disapprove</button></td>
+                </tr>
+                <tr>
+                    <td>A Student</td>
+                    <td>2020-10-09</td>
+                    <td>2</td>
+                    <td>Drew Honduras Project</td>
+                    <td>Required </td>
+                    <td>Explore and take action on solutions to real-world problems that fulfill the goals of social impact, financial viability, and environmental sustainability</td>
+                    <td>Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection_Reflection</td>
+                    <td><button>approve</button><button>disapprove</button></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+</div>
+
+<script src = "../js/jquery-3.5.1.js"></script>
+<script src = "../layui/layui.js"></script>
+<script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+<script>
+    layui.use(['element','laydate','form','layer','table'],function () {
+        var element = layui.element;
+        var table = layui.table;
+
+        table.init('demo', {
+            height: 315,
+            width: 1400,
+        });
+
+        table.render({
+            elem:'a_student',
+            height: 400,
+            cellMinWidth:80,
+            url: null,
+            cols:[[
+                {field: 'Name', title: 'Name',width: 80,fixed: 'left'},
+                {field:'Date',title:'Date',width:80, sort:true},
+                {field:'Hours',title:'Hours',width:80},
+                {field: 'Description_of_Activity',title: 'Description of Activity',width: 150},
+                {field:'Type', title: 'Type',width: 80,sort: true},
+                {field:'Learning_goals', title: 'Learning Goals', width: 150},
+                {field: 'Addition',title:'Reflection',width: 150}
+            ]]
+        })
+
+
+    });
+</script>
+<script defer src='/public/IG/IG/index.js'></script>
+</body>
+</html>

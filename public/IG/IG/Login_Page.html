@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drew Scholar System</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script src = "js/jquery-3.5.1.js"></script>
+    <script src = "layui/layui.js"></script>
+</head>
+<body>
+
+<div class="layui-header layui-bg-green">
+    <a class="layui-logo" href="">
+        <img src="Drew.png" height="24" width="102" alt="DREW" style="padding: 15px"/>
+    </a>
+</div>
+
+
+<div class = "layui-row" style="margin-top: 150px">
+    <div class="layui-col-md6 layui-col-md-offset3">
+        <div class = "layui-card layui-bg-blue" >
+            <div class="layui-card-header" style="text-align: center">Log In</div>
+            <br>
+            <div class="layui-card-body">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Email</label>
+                        <div class="layui-input-inline" style="width: 350px">
+                            <input type="text" name="username" id="email" placeholder="@drew.edu" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Password</label>
+                        <div class="layui-input-inline" style="width: 350px">
+                            <input type="password" name="password" id="password" placeholder="password" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <br>
+                    <div align="right" style="margin-right: 100px">
+                        <!--button class="layui-btn layui-btn-radius" name="signin" id="signin">Sign In</--button-->
+                        <input type="button" value="Sign In" onclick="newPage()" class="layui-btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="layui/layui.js" charset="UTF-8"></script>
+<script>
+    layui.use(['form','element'],function () {
+        var form = layui.form,
+            element = layui.element;
+    })
+</script>
+<script>
+    function newPage(){
+        var username = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        if (username=='student@drew.edu'||(username==1)&& password=='123'){
+            window.location.href = "Student/studentindex.html";
+        }
+        else if(username=='faculty@drew.edu'||(username==2) && password=='123'){
+            window.location.href = "Faculty/facultyindex.html";
+        }
+        else if(username=='admin@drew.edu' ||(username==3)&& password=='123'){
+            window.location.href = "Admin/adminindex.html";
+        }
+        else {
+            alert("Please Check your email and password")
+        }
+    }
+</script>
+
+</body>
+</html>

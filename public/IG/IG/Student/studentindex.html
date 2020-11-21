@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Home Page</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src = "../js/jquery-3.5.1.js"></script>
+    <script src = "../layui/layui.js"></script>
+    <script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+
+        <!-- update the version number as needed -->
+        <script src="/__/firebase/6.2.0/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/6.2.0/firebase-auth.js"></script>
+        <script defer src="/__/firebase/6.2.0/firebase-firestore.js"></script>
+
+        <!-- initialize the SDK after all desired features are loaded -->
+        <script defer src="/__/firebase/init.js"></script>
+
+    <style>
+        .layui-form-label{
+            width: 180px;
+            text-align: center;
+        }
+        .layui-input-block{
+            margin-left: 210px;
+        }
+
+    </style>
+    </head>
+<body>
+
+<!--导航栏-->
+<div class="layui-header layui-bg-green">
+    <a href="https://www.drew.edu">
+        <img src="../Drew.png" height="24" width="102" alt="DREW" style="padding: 15px"/>
+    </a>
+    <ul class = "layui-nav layui-bg-green layui-layout-right">
+
+        <li class = "layui-nav-item">
+            <a href="javascript:">
+                <img src = "../Student.jpg" class="layui-nav-img" alt="User Image">
+                A Student
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="StudentEventHistory.html">Event History</a> </dd>
+                <dd><a href="StudentProfiles.html">Personal Profiles</a></dd>
+                <dd><a id="StudentsignOutBtn" href="../index.html">Sign Out</a></dd>
+
+            </dl>
+        </li>
+    </ul>
+</div>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+<!--Track Bars-->
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;"><legend>Track Your Process</legend></fieldset>
+<div class = "layui-col-md12" style = "padding: 14px">
+    <div class = "layui-col-md1">Required</div>
+    <div class="layui-col-md11">
+        <div class = "layui-progress layui-progress-big" lay-showPercent = "yes">
+            <div class ="layui-progress-bar layui-bg-orange" lay-percent = 10% ></div>
+        </div>
+    </div>
+</div>
+<div class = "layui-col-md12" style = "padding: 14px">
+    <div class = "layui-col-md1">Active</div>
+    <div class="layui-col-md11">
+        <div  lay-showPercent = "yes">
+            <div class="w3-grey w3-center" style="height:24px; width:12% ;border-radius:12px" id='bar'></div>
+            <script>
+                const cent = (234/400*100)+"%"
+                document.getElementById('bar').style.width = cent
+                document.getElementById('bar').innerHTML = cent
+            </script>
+        </div>
+    </div>
+</div>
+<div class = "layui-col-md12" style = "padding: 14px">
+    <div class = "layui-col-md1">Receptive</div>
+    <div class="layui-col-md11">
+        <div class = "layui-progress layui-progress-big" lay-showPercent = "yes">
+            <div class ="layui-progress-bar layui-bg-red" lay-percent = "46%"></div>
+        </div>
+    </div>
+</div>
+
+<!--Event Submission-->
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;"><legend>Event Submission</legend></fieldset>
+<div class ="layui-col-md12 layui-bg-gray" style="padding: 5px">
+    <form class="layui-form" action="">
+        <div class="layui-form-item" style="margin-right: 5px;margin-left: 5px;margin-top: 2px">
+            <div class="layui-inline">
+                <label class="layui-form-label">Date</label>
+                <div class="layui-input-inline">
+                    <input type="date" class="layui-input" id="datestudent">
+
+                </div>
+            </div>
+            <div class="layui-inline" >
+                <label class="layui-form-label">Hours</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" pattern="[0-99]" id="hoursInput">
+                </div>
+            </div>
+        </div>
+
+        <div class = "layui-row" style="margin-left: 5px; margin-right: 5px">
+            <div class="layui-col-md12">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Description of Activity</label>
+                        <div class="layui-input-block">
+                            <select name="Description" lay-filter="" id="description">
+                                    <option value="">Please Choose</option>
+                                    <option value="Attendance at required events">Attendance at required events</option>
+                                    <option value="Drew Honduras Project(DHP)">Drew Honduras Project(DHP)</option>
+                                    <option value=>Drew Student Voter Project(DSVP)</option>
+                                    <option value="Changebuilder Program">Changebuilder Program</option>
+                                    <option value="Project Pericles Debating for Democracy Team">Project Pericles Debating for Democracy Team</option>
+                                    <option value="UPitch Business Development Team">UPitch Business Development Team</option>
+                                    <option value="Federal Community Work Study">Federal Community Work Study</option>
+                                    <option value="Community-Based Learning Project or Placement">Community-Based Learning Project or Placement</option>
+                                    <option value="Alternative Break Trip">Alternative Break Trip</option>
+                                    <option value="Lecture, Panel Discussion, Webinar, Screening, Performance">Lecture, Panel Discussion, Webinar, Screening, Performance</option>
+                                    <option value="Political Advocacy or Engagement">Political Advocacy or Engagement</option>
+                                    <option value="Diversity, Inclusion/Anti-Racism Facilitated Dialogues and WorkShops">Diversity, Inclusion/Anti-Racism Facilitated Dialogues and WorkShops</option>
+                                    <option value="Interfaith Training and Workshops(Center for Religion, Culture and Conflict)">Interfaith Training and Workshops(Center for Religion, Culture and Conflict)</option>
+                                    <option value="Participation in Student Government">Participation in Student Government</option>
+                                    <option value="Other(add description below)">Other(add description below)</option>
+                                </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+            <div class="layui-col-md12">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Type of learning hours:</label>
+                        <div class="layui-input-block">
+                            <select name="Description" lay-filter="" id="typeOfLearningHours">
+                                <option value="">Please Choose</option>
+                                <option value="Active (not requiring preapproval)">Active (not requiring preapproval)</option>
+                                <option value="Active (preapproved)">Active (preapproved)</option>
+                                <option value="Receptive">Receptive</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">Which program learning goals does this activity help fulfill? Check all that apply</label>
+            <br>
+            <div class="layui-input-block">
+                <input type="checkbox" name="Gain" lay-skin="primary" id="Gain">
+                <label for="Gain">Gain confidence and skills to identify, define and tackle complex problems that impact communities and transcend borders</label>
+                <br>
+                <input type="checkbox" name="Value" lay-skin="primary" id="Value">
+                <lable for ="Value">Value empathy, understanding and responsiveness to diverse others in their work and public roles.</lable>
+                <br>
+                <input type="checkbox" name="Explore" lay-skin="primary" id="Explore">
+                <label for="Explore">Explore and take action on solutions to real-world problems that fulfill the goals of social impact, financial viability, and environmental sustainability</label>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">Describe how the experiential learning hours were spent. Reflect on how this activity is aligned with the program's learning goals. (150-250 words)</label>
+            <div class="layui-input-block">
+                <textarea placeholder="Your Answer" class="layui-textarea" id="studentTextArea"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-col-md12" align="center">
+            <input type="button" style="margin-right: 30%" align="right" class="layui-btn layui-btn-radius" value="Submit" id="studentSubmit">
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+
+<script src = "../js/jquery-3.5.1.js"></script>
+<script src = "../layui/layui.js"></script>
+<script src = "../layui/css/modules/laydate/default/laydate.css"></script>
+<script src="../index.js"></script>
+<script>
+    layui.use(['element','laydate','form','layer'],function () {
+        var element = layui.element,
+            laydate = layui.laydate,
+            form = layui.form,
+            layer = layui.layer;
+
+        form.render();
+
+        laydate.render({
+            elem: "Active_date",
+            type: "date",
+            lang: "en",
+            format: "yyyy-MM-dd",
+        });
+    });
+</script>
+<script>
+    // function submit(){
+    //     alert("You have submitted you new event.")
+    //     location.reload()
+    // }
+</script>
+<!--<script defer src='/public/IG/IG/index.js'></script>-->
+</body>
+<section>
+
+    <table border="1">
+    <tr>
+        <td>2020-09-13</td>
+        <td>2</td>
+        <td>Political Advocacy or Engagement</td>
+        <td>Active Hour</td>
+        <td>Value empathy, understanding and responsiveness to diverse others in their work and public roles.</td>
+        <td><button>Approve</button><button>Disapprove</button></td>
+        <td>Reflection_</td>
+    </tr>
+    <tr>
+        <td>2020-09-13</td>
+        <td>2</td>
+        <td>Political Advocacy or Engagement</td>
+        <td>Active Hour</td>
+        <td>Value empathy, understanding and responsiveness to diverse others in their work and public roles.</td>
+        <td><button>Approve</button><button>Disapprove</button></td>
+        <td>Reflection_</td>
+    </tr>
+    </table>
+</section>
+</html>
