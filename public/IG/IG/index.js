@@ -1491,7 +1491,7 @@ const facultyOverview = document.getElementById('facultyOverview')
 const showfacultyBtn = document.getElementById('showfacultyBtn')
 const showStudentBtn = document.getElementById('showStudentBtn')
 const facultyTap = document.getElementById('facultyTap')
-
+console.log('')
 //admin
 auth.onAuthStateChanged(user =>{
     if(user){
