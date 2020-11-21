@@ -810,7 +810,7 @@ auth.onAuthStateChanged(user => {
 
     }
 })
-//each tap
+//each tap for student
 auth.onAuthStateChanged(user =>{
     if(user){
         collection = db.collection('STUDENT')
