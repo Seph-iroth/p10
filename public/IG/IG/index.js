@@ -1488,10 +1488,8 @@ const receptiveOrder = document.getElementById('receptiveOrder')
 const nameOrder = document.getElementById('nameOrder')
 const overviewOfStudent = document.getElementById('overviewOfStudent')
 const facultyOverview = document.getElementById('facultyOverview')
-
 const showfacultyBtn = document.getElementById('showfacultyBtn')
 const showStudentBtn = document.getElementById('showStudentBtn')
-
 const facultyTap = document.getElementById('facultyTap')
 
 //admin
