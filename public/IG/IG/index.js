@@ -1552,23 +1552,7 @@ auth.onAuthStateChanged(user =>{
                 table.innerHTML = history.join('');
 
             })
-            //.orderBy("Required", "desc");
-        // activeOrder.onclick=()=>{
-        //     whichorder = "Active"
-        //     console.log(whichorder)
-        // }
-        // requiredOrder.onclick=()=>{
-        //     whichorder = "Required"
-        //     console.log(whichorder)
-        // }
-        // receptiveOrder.onclick=()=>{
-        //     whichorder = "Receptive"
-        //     console.log(whichorder)
-        // }
-        // nameOrder.onclick=()=>{
-        //     whichorder = "name"
-        //     console.log(whichorder)
-        // }
+
 
     }
     else{
