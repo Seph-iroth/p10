@@ -115,7 +115,6 @@ auth.onAuthStateChanged(function(user) {
                     //window.location.assign('../IG/Admin/AdminHomePage.html')
                     //document.getElementById('goAdmin').hidden = false;
                     adminLogin.hidden = false
-
                     facultyOverview.hidden = false
                 }
                 getfaculty
@@ -499,8 +498,7 @@ auth.onAuthStateChanged(user => {
                                         collection.doc(user.email).set({
                                             'summary': true,
                                             'useremail': user.email,
-                                            'name': user.displayName,
-
+                                            'Summary_name': user.displayName,
                                             'lastUpload': getDate()
                                         }) // create the document
                                     }
@@ -599,7 +597,7 @@ auth.onAuthStateChanged(user => {
             .doc(user.email)
             .onSnapshot(
                 doc=>{
-                    if((doc.data().Active+doc.data().Receptive+doc.data().Required)>750){
+                    if((doc.data().Active + doc.data().Receptive + doc.data().Required)>750){
                         console.log((doc.data().Active+doc.data().Receptive+doc.data().Required))
                         row1.hidden = false
                         row2.hidden = false
@@ -626,7 +624,7 @@ auth.onAuthStateChanged(user => {
             collection.doc(user.email).update({
                 'summary': true,
                 'useremail': user.email,
-                'name': user.displayName,
+                'Summary_name': user.displayName,
                 'mentor': selectMentor.value.trim(),
                 'lastUpload': getDate()
             })
@@ -1134,11 +1132,62 @@ function facultyclean(){
     studentTextAreaChange.value = ''
     facultystauts.value = ''
 }
+function passIdtoField(ids){
+    console.log(ids)
+    uidinput.value = ids
+}
+function passIdtoFieldForstudentDetail(name){
+    console.log(name)
+
+    uidForStudentHistory.value = name
+    db.collection('STUDENT')
+        .where('name','==',name)
+        .get()
+        .then(snap=>{
+            const history = snap.docs.map(
+                doc => {
+                    return `<li class = "layui-timeline-item animate__animated animate__fadeIn hoverover " style="padding-left: 2rem;border-radius: 15px">
+                            <div class="layui-timeline-content layui-text" style="border-radius: 15px">
+                                <div class="layui-timeline-title layui-row">
+                                        <div class="">
+                                              <h3 class="layui-timeline-title">${doc.data().uploadTime}</h3>
+                                        </div>                                        
+                                </div>
+                                <div class="layui-collapse">
+                                    <div class="layui-colla-item">
+                                        <div class="layui-colla-title layui-row">
+                                            <div class="layui-col-md3"></div>
+                                            <div class="layui-col-md3">${doc.data().stauts}</div>
+                                            <div class="layui-col-md2"></div>
+                                            <div class="layui-col-md4">${doc.id}</div>
+                                        </div>
+                                        
+                                        <div class="layui-show" style="padding: 1rem">
+                                            <p>
+                                                Date on: ${doc.data().date}
+                                                <p style="font-size:140% ; border-radius: 10px ">Hours:${doc.data().hours}</p><br>
+                                                Description of Activity:   ${doc.data().descriptionofActivity}<br>
+                                                Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
+                   
+                                                Fullfill:  ${getFulfill()}
+                                            </p>
+                                            <p style="color: #ff0000">
+                                            Reflect:${doc.data().Reflect}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`
+                }
+            )
+            thatStudentHistoryList.innerHTML = history.join('');
+        })
+}
 //faculty
 auth.onAuthStateChanged(user =>{
     if(user){
         const STUDENT = db.collection('STUDENT')
-
         unsubscribe = STUDENT
             .where('mentor','==',user.email)
             .where('summary','==',true)
@@ -1153,7 +1202,7 @@ auth.onAuthStateChanged(user =>{
                                     <div class="layui-col-md3">
                                         <div class="layui-card">
                                             <div class="layui-card-body">
-                                                ${doc.data().name}
+                                                ${doc.data().Summary_name}
                                             </div>
                                         </div>
                                     </div>
@@ -1182,10 +1231,8 @@ auth.onAuthStateChanged(user =>{
                             </div>
                         </div>
                         `
-
                     });
                 document.getElementById('facultyStudentTable2').innerHTML = history.join('');
-
             })
 
         unsubscribe = STUDENT
@@ -1197,12 +1244,15 @@ auth.onAuthStateChanged(user =>{
                         console.log(doc.data().name+doc.data().Active+doc.data().Receptive+doc.data().Required)
                         return `
                          <div class="">
-                            <div style="padding: 0px 15px 0px 15px;; background-color: #F2F2F2;">
+                            <div style="padding: 0px 5px 0px 5px;; background-color: #F2F2F2;">
                                 <div class="layui-row layui-col-space6">
                                     <div class="layui-col-md12">
                                         <div class="layui-card">
                                             <div class="layui-card-body">
-                                                ${doc.data().name}
+                                            <button class='layui-btn layui-btn-primary layui-btn-fluid'
+                                            onclick="passIdtoFieldForstudentDetail('${doc.data().Summary_name}')">
+                                                ${doc.data().Summary_name}
+                                            </button>
                                             </div>
                                         </div>
                                     </div>
@@ -1406,8 +1456,8 @@ auth.onAuthStateChanged(user =>{
                                 <div class="layui-collapse">
                                     <div class="layui-colla-item">
                                         <div class="layui-colla-title layui-row">
-                                            <div class="layui-col-md3">${doc.data().stauts}</div>
                                             <div class="layui-col-md3"></div>
+                                            <div class="layui-col-md3">${doc.data().stauts}</div>
                                             <div class="layui-col-md2"></div>
                                             <div class="layui-col-md4">${doc.id}</div>
                                         </div>
@@ -1444,15 +1494,18 @@ auth.onAuthStateChanged(user =>{
                 // Map results to an array of li elements
                 const history = querySnapshot.docs.map(
                     doc => {
-                        return `<li class = "layui-timeline-item">
+                        return `<li class = "layui-timeline-item"> 
                             <i class = "layui-icon layui-timeline-axis"></i>
                             <div class="layui-timeline-content layui-text">
                                 <section class="layui-timeline-title">upload At ${doc.data().uploadTime}  <h6 style="float: right;color: #0d9800">${doc.data().stauts}</h6></section>
                                 <div class="layui-collapse">
                                     <div class="layui-colla-item">
-                                        <h3 class="layui-colla-title">${doc.data().name}  
-                                                      ( ${doc.id} )
-                                        </h3>
+                                        <div class="layui-row layui-colla-title layui-col-md12">
+                                            <div class="layui-col-md3"> <button style="width: 100%" class="layui-btn layui-btn-normal" onclick="passIdtoField('${doc.id}')">${doc.data().name}</button></div>
+                                            <div class="layui-col-md3"></div>
+                                            <div class="layui-col-md3"></div>
+                                            <div class="layui-col-md3"></div>                                         
+                                        </div>
                                         <div class="layui-colla-content layui-show">
                                             <p>
                                                 Date on: ${doc.data().date}
@@ -1491,7 +1544,7 @@ const facultyOverview = document.getElementById('facultyOverview')
 const showfacultyBtn = document.getElementById('showfacultyBtn')
 const showStudentBtn = document.getElementById('showStudentBtn')
 const facultyTap = document.getElementById('facultyTap')
-console.log('')
+
 //admin
 auth.onAuthStateChanged(user =>{
     if(user){
@@ -1509,7 +1562,7 @@ auth.onAuthStateChanged(user =>{
 
         const STUDENT = db.collection('STUDENT')
         const faculty = db.collection('faculty')
-        console.log('here I am')
+
         faculty
             .onSnapshot(querySnapshot => {
                 const faculty = querySnapshot.docs.map(

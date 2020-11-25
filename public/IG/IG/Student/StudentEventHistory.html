@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<section>
-    <!-- update the version number as needed -->
-    <script src="/__/firebase/6.2.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Home Page</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src = "../js/jquery-3.5.1.js"></script>
+    <script src = "../layui/layui.js"></script>
+    <script src = "../layui/css/modules/laydate/default/laydate.css"></script>
     <script defer src="/__/firebase/6.2.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/6.2.0/firebase-firestore.js"></script>
-
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
-</section>
+</head>
 </body>
 
 <section>
@@ -42,7 +41,7 @@
 
 <div class="layui-row" style="margin-top: 20px">
     <div class="layui-col-md1">
-        <a href="studentindex.html" class="layui-btn" style="margin-left:10px "><i class="layui-icon layui-icon-return"></i>Back</a>
+        <a href="studentindex.html" class="layui-btn" style="margin-left:10px ">Back</a>
     </div>
     <div class="layui-col-md11">
 
@@ -57,7 +56,13 @@
                     <h2 class="layui-timeline-title">2020-10-09</h2>
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
-                            <h3 class="layui-colla-title">Event Name(1) </h3>
+                            <div class="layui-row layui-colla-title">
+                                <div class="layui-col-md3">1</div>
+                                <div class="layui-col-md3">2</div>
+                                <div class="layui-col-md3">3</div>
+                                <div class="layui-col-md3">4</div>
+                            </div>
+
                             <div class="layui-colla-content layui-show">
                                 <p>
                                     8 Hours<br>
