@@ -355,20 +355,24 @@ const approvedHistory =document.getElementById('approvedHistory')
 const rejectedHistory =document.getElementById('rejectedHistory')
 const pendingHistory =document.getElementById('pendingHistory')
 const DefaultHistory =document.getElementById('DefaultHistory')
+const studentdetails =document.getElementById('studentdetails')
+
 
 const approvalH =document.getElementById('approvalH')
 const rejectedH =document.getElementById('rejectedH')
 const pendingH =document.getElementById('pendingH')
 const defaultH =document.getElementById('defaultH')
+const detailsH =document.getElementById('detailsH')
 const submitUpdate =document.getElementById('submitUpdate')
 const submitdelete =document.getElementById('submitdelete')
-
+const Detailofstudent =document.getElementById('Detailofstudent')
 function showAll(){
     eventHistory.hidden = false
     approvalH.hidden = true
     rejectedH.hidden = true
     pendingH.hidden = true
     defaultH.hidden = true
+    detailsH.hidden =true
 
 }
 function showApproved(){
@@ -377,6 +381,7 @@ function showApproved(){
     rejectedH.hidden = true
     pendingH.hidden = true
     defaultH.hidden = true
+    detailsH.hidden =true
 
 }
 function showRejected(){
@@ -385,6 +390,7 @@ function showRejected(){
     rejectedH.hidden = false
     pendingH.hidden = true
     defaultH.hidden = true
+    detailsH.hidden =true
 
 }
 function showPending(){
@@ -393,6 +399,7 @@ function showPending(){
     rejectedH.hidden = true
     pendingH.hidden = false
     defaultH.hidden = true
+    detailsH.hidden =true
 
 }
 function showDefault(){
@@ -401,6 +408,17 @@ function showDefault(){
     rejectedH.hidden = true
     pendingH.hidden = true
     defaultH.hidden = false
+    detailsH.hidden =true
+
+}
+
+function showDetail(){
+    eventHistory.hidden = true
+    approvalH.hidden = true
+    rejectedH.hidden = true
+    pendingH.hidden = true
+    defaultH.hidden = true
+    detailsH.hidden = false
 
 }
 
@@ -507,109 +525,128 @@ auth.onAuthStateChanged(user => {
                     })
 
             })
-        collection
-            .where('uid','==',user.uid)
-            .where('TypeOfLearningHours','==','Active (not requiring preapproval)')
-            .onSnapshot(querySnapshot => {
-                // Map results to an array of li elements
-                const totalhours = querySnapshot.docs.map(
-                    doc => {
-                        return doc.data().hours
-                    });
-                let total = 0
-                for(i=0;i<totalhours.length;i++){
-                    total = totalhours[i] + total
-                }
 
-                activedbar.style.width =(total/250)*100 +"%"
-                activedbar.innerHTML = Math.round((total/250)*100) + "%"+"  "+`<p>${total}</p>`
-                collection.doc(user.email).update(
-                    {
-                        Active: total,
-                    }
-                )
-            });
-        collection
-            .where('uid','==',user.uid)
-            .where('stauts','==','Approved')
-            .where('TypeOfLearningHours','==','Active (preapproved)')
-            .onSnapshot(querySnapshot => {
-                // Map results to an array of li elements
-                const totalhours = querySnapshot.docs.map(
-                    doc => {
-                        return doc.data().hours
-                    });
-                let total = 0
-                for(i=0;i<totalhours.length;i++){
-                    total = totalhours[i] + total
-                }
+        db.collection('management')
+            .doc('hourCap')
+            .onSnapshot(management=>{
+                let maxActive = management.data().Active
+                let maxReceptive = management.data().Receptive
+                let maxRequired = management.data().Required
+                collection
+                    .doc(user.email)
+                    .onSnapshot(function(doc) {
+                        collection
+                            .where('uid','==',user.uid)
+                            .where('TypeOfLearningHours','==','Active (not requiring preapproval)')
+                            .onSnapshot(querySnapshot => {
+                                // Map results to an array of li elements
 
-                requiredbar.style.width =(total/250)*100 +"%"
-                requiredbar.innerHTML = Math.round((total/250)*100) + "%"+"  "+`<p>${total}</p>`
-                collection.doc(user.email).update(
-                    {
-                        Required : total
-                    }
-                )
-            });
-        collection
-            .where('uid','==',user.uid)
-            .where('TypeOfLearningHours','==','Receptive')
-            .onSnapshot(querySnapshot => {
-                // Map results to an array of li elements
-                const totalhours = querySnapshot.docs.map(
-                    doc => {
-                        return doc.data().hours
-                    });
-                let total = 0
-                for(i=0;i<totalhours.length;i++){
-                    total = totalhours[i] + total
-                }
-                receptivebar.style.width = (total/250)*100 + "%"
-                receptivebar.innerHTML = Math.round((total/250)*100) + "%"+"  "+`<p>${total}</p>`
-                collection.doc(user.email).update(
-                    {
-                        Receptive: total
-                    }
-                )
-            });
-        collection
-            .where('uid','==',user.uid)
-            .onSnapshot(querySnapshot => {
-                // Map results to an array of li elements
-                const totalhours = querySnapshot.docs.map(
-                    doc => {
-                        return doc.data().hours
-                    });
-                let total = 0
-                for(i=0;i<totalhours.length;i++){
-                    total = totalhours[i] + total
-                }
-                let over = total - 750
-                overtime.innerHTML = over + " HOURS"
-                // if(over > 0){
-                //     overtime.innerHTML = over + "hours"
-                // }
+                                const totalhours = querySnapshot.docs.map(
+                                    doc => {
+                                        return doc.data().hours
+                                    });
+                                let total = 0
+                                for(i=0;i<totalhours.length;i++){
+                                    total = totalhours[i] + total
+                                }
 
-            });
+                                activedbar.style.width =(total/maxActive)*100 +"%"
+                                activedbar.innerHTML = Math.round((total/maxActive)*100) + "%"
+                                collection.doc(user.email).update(
+                                    {
+                                        Active: total,
+                                    }
+                                )
+                            });
+                        collection
+                            .where('uid','==',user.uid)
+                            .where('stauts','==','Approved')
+                            .where('TypeOfLearningHours','==','Active (preapproved)')
+                            .onSnapshot(querySnapshot => {
+                                // Map results to an array of li elements
+                                const totalhours = querySnapshot.docs.map(
+                                    doc => {
+                                        return doc.data().hours
+                                    });
+                                let total = 0
+                                for(i=0;i<totalhours.length;i++){
+                                    total = totalhours[i] + total
+                                }
 
-        collection
-            .doc(user.email)
-            .onSnapshot(
-                doc=>{
-                    if((doc.data().Active + doc.data().Receptive + doc.data().Required)>750){
-                        console.log((doc.data().Active+doc.data().Receptive+doc.data().Required))
-                        row1.hidden = false
-                        row2.hidden = false
-                        row3.hidden = false
-                    }
-                    else{
-                        row1.hidden = true
-                        row2.hidden = true
-                        row3.hidden = true
-                    }
-                }
-            )
+                                requiredbar.style.width =(total/maxReceptive)*100 +"%"
+                                requiredbar.innerHTML = Math.round((total/maxReceptive)*100) + "%"
+                                collection.doc(user.email).update(
+                                    {
+                                        Required : total
+                                    }
+                                )
+                            });
+                        collection
+                            .where('uid','==',user.uid)
+                            .where('TypeOfLearningHours','==','Receptive')
+                            .onSnapshot(querySnapshot => {
+                                // Map results to an array of li elements
+                                const totalhours = querySnapshot.docs.map(
+                                    doc => {
+                                        return doc.data().hours
+                                    });
+                                let total = 0
+                                for(i=0;i<totalhours.length;i++){
+                                    total = totalhours[i] + total
+                                }
+                                receptivebar.style.width = (total/maxRequired)*100 + "%"
+                                receptivebar.innerHTML = Math.round((total/maxRequired)*100) + "%"
+                                collection.doc(user.email).update(
+                                    {
+                                        Receptive: total
+                                    }
+                                )
+                            });
+                    })
+            })
+
+
+        db.collection('management')
+            .doc('hourCap')
+            .onSnapshot(management=>{
+                let maxActive = management.data().Active
+                let maxReceptive = management.data().Receptive
+                let maxRequired = management.data().Required
+                let maxmax = management.data().Active+management.data().Receptive+ management.data().Required
+                collection
+                    .doc(user.email)
+                    .onSnapshot(
+                        doc=>{
+                            if((doc.data().Active + doc.data().Receptive + doc.data().Required)>maxmax){
+                                row1.hidden = false
+                                row2.hidden = false
+                                row3.hidden = false
+                            }
+                            else{
+                                row1.hidden = true
+                                row2.hidden = true
+                                row3.hidden = true
+                            }
+                        }
+                    )
+            })
+
+
+
+
+        db.collection('management')
+            .doc('hourCap')
+            .onSnapshot(management=>{
+                collection
+                    .doc(user.email)
+                    .onSnapshot(function(doc) {
+                        document.getElementById('detailmentor').innerHTML = doc.data().mentor
+                        document.getElementById('detailActive').innerHTML = doc.data().Active +'/'+ management.data().Active
+                        document.getElementById('detailReceptive').innerHTML = doc.data().Receptive + '/'+management.data().Receptive
+                        document.getElementById('detailRequired').innerHTML = doc.data().Required +'/'+ management.data().Required
+                    })
+                })
+
 
         function stauts(){
             if(needApproval()){
@@ -739,6 +776,11 @@ auth.onAuthStateChanged(user => {
             console.log('defaultH')
             showDefault();
             console.log('defaultH')
+        }
+        studentdetails.onclick=()=>{
+            console.log('Detail')
+            showDetail();
+            console.log('Detail')
         }
         unsubscribe = collection
             .where('uid','==',user.uid)
@@ -1041,6 +1083,16 @@ auth.onAuthStateChanged(user =>{
 
             })
             //.orderBy("createdAt", "desc");
+
+    }
+    else{
+        unsubscribe && unsubscribe();
+
+    }
+})
+auth.onAuthStateChanged(user =>{
+    if(user){
+        const collection = db.collection('STUDENT')
 
     }
     else{
@@ -1501,7 +1553,7 @@ auth.onAuthStateChanged(user =>{
                                 <div class="layui-collapse">
                                     <div class="layui-colla-item">
                                         <div class="layui-row layui-colla-title layui-col-md12">
-                                            <div class="layui-col-md3"> <button style="width: 100%" class="layui-btn layui-btn-normal" onclick="passIdtoField('${doc.id}')">${doc.data().name}</button></div>
+                                            <div class="layui-col-md3"> <button style="width: 100%" class="layui-btn layui-btn-primary" onclick="passIdtoField('${doc.id}')">${doc.data().name}</button></div>
                                             <div class="layui-col-md3"></div>
                                             <div class="layui-col-md3"></div>
                                             <div class="layui-col-md3"></div>                                         
@@ -1544,24 +1596,118 @@ const facultyOverview = document.getElementById('facultyOverview')
 const showfacultyBtn = document.getElementById('showfacultyBtn')
 const showStudentBtn = document.getElementById('showStudentBtn')
 const facultyTap = document.getElementById('facultyTap')
+const changeMaxHour = document.getElementById('changeMaxHour')
 
+const AdminChangeHourAcive = document.getElementById('AdminChangeHourAcive')
+const AdminChangeHourReceptive = document.getElementById('AdminChangeHourReceptive')
+const AdminChangeHourRequired = document.getElementById('AdminChangeHourRequired')
+const submitChangehourBTN = document.getElementById('submitChangehourBTN')
+
+const adminEmailField = document.getElementById('adminEmailField')
+const studentEmailField = document.getElementById('studentEmailField')
+
+const addAdminBTN = document.getElementById('addAdminBTN')
+const deleteAdminBTN = document.getElementById('deleteAdminBTN')
+function givebackHTML(list){
+    const back = list.map(
+        doc=>{
+            return `<p>${doc}</p>`
+        }
+    )
+    return back.join('')
+}
+function setStudentEmailField(email){
+
+}
 //admin
 auth.onAuthStateChanged(user =>{
     if(user){
+        const admin = db.collection('management').doc('admin')
+
         showfacultyBtn.onclick=()=>{
             tablehead.hidden = true
             facultyOverview.hidden=false
+            ChangeMAX.hidden = true
         }
         showStudentBtn.onclick=()=>{
             tablehead.hidden = false
             facultyOverview.hidden=true
-
+            ChangeMAX.hidden = true
         }
-        var whichorder = "Receptive"
-        var whatorder = 'asc'
+        changeMaxHour.onclick=()=>{
+            tablehead.hidden = true
+            facultyOverview.hidden=true
+            ChangeMAX.hidden = false
+        }
+
+        //Add admin And delete admin
+        addAdminBTN.onclick=()=>{
+            admin.update({
+                admin: firebase.firestore.FieldValue.arrayUnion(adminEmailField.value.trim())
+            })
+            adminEmailField.value = ''
+        }
+        deleteAdminBTN.onclick=()=>{
+            admin.update({
+                admin: firebase.firestore.FieldValue.arrayRemove(adminEmailField.value.trim())
+            })
+            adminEmailField.value = ''
+        }
+        admin
+            .onSnapshot(doc=>{
+                const adminlist = doc.data().admin.map(
+                    ad=>{
+                        return `<p>${ad}</p>`
+                    }
+                )
+                document.getElementById('admintap').innerHTML = adminlist.join('')
+            })
+
+
+
 
         const STUDENT = db.collection('STUDENT')
         const faculty = db.collection('faculty')
+
+
+        const management = db.collection('management')
+
+        management
+            .doc('hourCap')
+            .onSnapshot(doc=>{
+                AdminChangeHourAcive.innerHTML = doc.data().Active+" hours"
+                AdminChangeHourReceptive.innerHTML = doc.data().Receptive+" hours"
+                AdminChangeHourRequired.innerHTML = doc.data().Required+" hours"
+            })
+        submitChangehourBTN.onclick=()=>{
+            if(changeActivefield.value !==''){
+                management
+                    .doc('hourCap')
+                    .update({
+                        Active:parseInt(changeActivefield.value),
+                    })
+            }
+            if(changeReceptivefield.value !==''){
+                management
+                    .doc('hourCap')
+                    .update({
+                        Receptive:parseInt(changeReceptivefield.value),
+                    })
+            }
+            if(changeRequiredfield.value !==''){
+                management
+                    .doc('hourCap')
+                    .update({
+                        Required:parseInt(changeRequiredfield.value),
+                    })
+            }
+            changeActivefield.value =''
+            changeReceptivefield.value=''
+            changeRequiredfield.value=''
+
+        }
+
+
 
         faculty
             .onSnapshot(querySnapshot => {
@@ -1571,8 +1717,8 @@ auth.onAuthStateChanged(user =>{
                         return `<li class="layui-col-md12 animate__animated animate__fadeIn">
                                     <div class="layui-card">
                                         <div class="layui-card-header ">Faculty: ${doc.id}</div>
-                                        <div class="layui-card-body">
-                                            Student: ${doc.data().student}
+                                        <div class="layui-card-body">                                          
+                                            ${givebackHTML(doc.data().student)}
                                         </div>
                                     </div>
                                 </li>`
@@ -1586,18 +1732,67 @@ auth.onAuthStateChanged(user =>{
                 // Map results to an array of li elements
                 const history = querySnapshot.docs.map(
                     doc => {
-                        return `<tr>
-                        <td>${doc.data().name}</td>
-                        <td>
-                            <p>${doc.data().Active} hours</p>
-                        </td>
-                        <td>
-                            <p>${doc.data().Receptive} hours</p>
-                        </td>
-                        <td>
-                            <p>${doc.data().Required} hours</p>
-                        </td>
-                    </tr>
+                        return `
+                         <div class="">
+                            <div style="padding: 0px 15px 0px 15px;; background-color: #F2F2F2;">
+                                <div class="layui-row layui-col-space6">
+                                    <div class="layui-col-md12">
+                                        <div class="layui-card">
+                                            <buton class="layui-card-body layui-btn layui-btn-fluid">
+                                                ${doc.data().Summary_name}
+                                            </buton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    });
+                document.getElementById('listofStudentSelect').innerHTML = history.join('');
+
+            })
+
+        unsubscribe = STUDENT
+            .where('summary','==',true)
+            .onSnapshot(querySnapshot => {
+                // Map results to an array of li elements
+                const history = querySnapshot.docs.map(
+                    doc => {
+                        return `
+                         <div class="">
+                            <div style="padding: 0px 15px 0px 15px;; background-color: #F2F2F2;">
+                                <div class="layui-row layui-col-space6">
+                                    <div class="layui-col-md3">
+                                        <div class="layui-card">
+                                            <div class="layui-card-body">
+                                                ${doc.data().Summary_name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md3">
+                                        <div class="layui-card">
+                                            <div class="layui-card-body">
+                                                ${doc.data().Active} hours
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md3">
+                                        <div class="layui-card">
+                                            <div class="layui-card-body">
+                                                ${doc.data().Receptive} hours
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md3">
+                                        <div class="layui-card">
+                                            <div class="layui-card-body">
+                                                ${doc.data().Required} hours
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         `
                     });
                 table.innerHTML = history.join('');

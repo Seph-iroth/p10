@@ -59,6 +59,7 @@
                 <button id="signInBtn" class="button" >Sign in with Google</button>
             </div>
         </div>
+
     </div>
 
     <section id="whenSignedIn" hidden="true"><!--原本是 hidden="true"-->
@@ -100,6 +101,8 @@
 
 
 
+
+
 <section hidden="true" id="adminLogin" class="layui-layout-body">
 
     <!--侧边导航栏-->
@@ -108,9 +111,27 @@
             <ul class = "layui-nav layui-nav-tree layui-bg-green">
                 <li class="layui-nav-item">
                     <div class="layui-btn-container">
-                        <a hidden="true" target="_blank"  href="https://console.firebase.google.com/u/3/project/combine2-2ae69/firestore/data~2Ffaculty~2Fgamingmaxor@gmail.com">Management</a>
-                        <button  id="showfacultyBtn" class="layui-btn  layui-btn-fluid">Faculty List</button>
+                        <a hidden="true" target="_blank"  href="https://console.firebase.google.com/u/3/project/combine2-2ae69/firestore/data~2Ffaculty~2Fgamingmaxor@gmail.com">Database</a>
+                        <button  id="showfacultyBtn" class="layui-btn  layui-btn-fluid">Management</button>
                         <button  id="showStudentBtn" class="layui-btn  layui-btn-fluid">Overview</button>
+                        <button  id="changeMaxHour" class="layui-btn  layui-btn-fluid">Change Hours</button>
+                    </div>
+                </li>
+
+                <li class="layui-nav-item" id="">
+                    <div class="layui-btn-container">
+                        <label>
+                            <input id="adminEmailField" type="text" name="title" lay-verify="email" autocomplete="off" placeholder="AdminEmail" class="layui-input">
+                        </label>
+                        <button id="addAdminBTN" class="layui-btn  layui-btn-fluid">Add Admin</button>
+                        <button id="deleteAdminBTN" class="layui-btn  layui-btn-fluid">Delete Admin</button>
+
+                        <label>
+                            <input id="studentEmailField" type="text" name="title"  autocomplete="on" lay-verify="email" placeholder="Student Email" class="layui-input" >
+                        </label>
+                        <button class="layui-btn  layui-btn-fluid">Add Faculty</button>
+                        <button class="layui-btn  layui-btn-fluid"></button>
+                        <button class="layui-btn  layui-btn-fluid"></button>
                     </div>
                 </li>
 
@@ -119,31 +140,202 @@
     </div>
 
     <!--内容主题区域 overall student-->
-    <div id="tablehead" hidden="true" class = "layui-body animate__animated animate__slideInDown " style="margin-top: 60px;padding: 1rem"  >
-        <div class="layui-row" >
-            <div class="layui-col-md12">
-                <table  style="width: 100%" >
-                    <tr>
-                        <th>Name     </th>
-                        <th>Active   </th>
-                        <th>Receptive</th>
-                        <th>Required </th>
-                    </tr>
-                </table>
-                <table border="1" style="width: 100%" id="table">
-                </table>
+    <div id="tablehead" hidden="true" class = "layui-body animate__animated animate__slideInDown " style="margin-top: 45px;padding: 1rem"  >
+
+        <div style="margin-top: 40px" class="layui-col-md8">
+            <div >
+                <div style="padding: 0px 15px 0px 15px; background-color: #F2F2F2;">
+                    <div class="layui-row layui-col-space6">
+                        <div class="layui-col-md3">
+                            <div class="layui-card ">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Name
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Active
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Receptive
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body blueBGWhiteText">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div id="table"></div>
         </div>
     </div>
     <!--内容主题区域 faculty student-->
     <div  id="facultyOverview"  class = "layui-body animate__animated animate__slideInDown " style="margin-top: 60px;padding: 1rem">
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>Faculty</legend>
-        </fieldset>
-        <div style="padding: 20px; background-color: #F2F2F2;">
-            <ul class="layui-row layui-col-space15" id="facultyTap">
+        <div class="layui-row layui-col-md12">
+            <div class="layui-col-md3">
 
-            </ul>
+            </div>
+            <div class="layui-col-md3">
+
+            </div>
+            <div class="layui-col-md3">
+
+            </div>
+            <div class="layui-col-md3">
+
+            </div>
+        </div>
+        <div class="layui-row layui-col-md12">
+
+            <div class="layui-col-md6">
+
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>Admin</legend>
+                </fieldset>
+
+                <div style="padding: 20px; background-color: #F2F2F2;">
+
+                    <ul class="layui-row layui-col-space15" >
+                        <li class="layui-col-md12 animate__animated animate__fadeIn">
+                            <div class="layui-card">
+                                <div class="layui-card-header ">Admin</div>
+                                <div class="layui-card-body" id="admintap">
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>Faculty</legend>
+                </fieldset>
+                <div style="padding: 20px; background-color: #F2F2F2;">
+                    <ul class="layui-row layui-col-space15" id="facultyTap">
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="layui-col-md1" >
+
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>Student</legend>
+            </fieldset>
+            <div class="layui-col-md3" id="listofStudentSelect" style="padding: 20px">
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+    <!--内容主题区域 Maxhour-->
+    <div  id="ChangeMAX"  hidden class = "layui-body animate__animated animate__slideInDown " style="margin-top: 60px;padding: 1rem">
+        <div class="" style="background-color: #F2F2F2;">
+            <div style="padding: 10px 10px 10px 10px; background-color: #F2F2F2;" class="layui-col-md9">
+                <div class="layui-row layui-col-space6">
+
+                    <div class="layui-row layui-col-space6">
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    Active
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    Receptive
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-row layui-col-space6">
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body" id="AdminChangeHourAcive">
+                                    12
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body" id="AdminChangeHourReceptive">
+                                    32
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body" id="AdminChangeHourRequired">
+                                    14
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    Current
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-row layui-col-space6">
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    <input id="changeActivefield" type="number" name="title"  autocomplete="off" placeholder="Active" class="layui-input" style="height: 25px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    <input id="changeReceptivefield" type="number" name="title"  autocomplete="off" placeholder="Receptive" class="layui-input" style="height: 25px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card">
+                                <div class="layui-card-body">
+                                    <input id="changeRequiredfield" type="number" name="title"  autocomplete="off" placeholder="Required" class="layui-input" style="height: 25px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-card" >
+                                <button id="submitChangehourBTN" class="layui-btn layui-btn-fluid " style="height: 45px">Submit Chnage</button>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            </div>
         </div>
     </div>
 
@@ -640,7 +832,7 @@
         </script>
 
         <!--<script defer src='/public/IG/IG/index.js'></script>-->
-        </section>
+    </section>
         <div class="layui-row "  style="margin-top: 20px">
             <div class="layui-col-md11">
                 <!--中间导航栏-->
@@ -654,29 +846,87 @@
                     <li><input value="Rejected" type="button" id='rejectedHistory' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
                     <li><input value="Pending" type="button"  id='pendingHistory' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
                     <li><input value="Approved by Default" type="button"  id='DefaultHistory' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
-<!--                    <li><input value="Change Pending Submission" type="button"  id='submissionUpdate' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>-->
+                    <li><input value="Details" type="button"  id='studentdetails' class="layui-btn  layui-btn-primary layui-btn-fluid"></li>
+
                 </ul>
                 <ul id = "eventHistory" class="animate__animated animate__fadeIn" style="padding: 3rem">
 
                 </ul>
-
                 <ul id = "approvalH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
                 </ul>
-                <ul id = "rejectedH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+                <ul id = "rejectedH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">                </ul>
+                <ul id = "pendingH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">                </ul>
+                <ul id = "defaultH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">                </ul>
+                <div id = "detailsH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+                    <div class="" style="background-color: #F2F2F2;">
+                        <div style="padding: 10px 10px 10px 10px; background-color: #F2F2F2;" class="layui-col-md8">
+                            <div class="layui-row layui-col-space6">
+                                <div class="layui-col-md3 ">
+                                    <div class="layui-card ">
+                                        <div class="layui-card-body " style="background: #68b3ff;color: white;">
+                                            Mentor
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md3">
+                                    <div class="layui-card">
+                                        <div class="layui-card-body">
+                                            Active
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md3">
+                                    <div class="layui-card">
+                                        <div class="layui-card-body">
+                                            Receptive
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md3">
+                                    <div class="layui-card">
+                                        <div class="layui-card-body">
+                                            Required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-row layui-col-space6">
+                                <div class="layui-col-md3 ">
+                                    <div  class="layui-card ">
 
-                </ul>
-                <ul id = "pendingH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+                                        <div id='detailmentor' class="layui-card-body " style="background: #68b3ff;color: white;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md3">
+                                    <div  class="layui-card">
 
-                </ul>
-                <ul id = "defaultH" hidden="true" class="animate__animated animate__fadeIn" style="padding: 3rem;">
+                                        <div id='detailActive' class="layui-card-body">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md3">
+                                    <div class="layui-card">
 
-                </ul>
+                                        <div id='detailReceptive' class="layui-card-body">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md3">
+                                    <div class="layui-card">
 
+                                        <div id='detailRequired' class="layui-card-body">
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-
+</section>
 
 </html>
 
