@@ -1301,10 +1301,13 @@ auth.onAuthStateChanged(user =>{
                                     <div class="layui-col-md12">
                                         <div class="layui-card">
                                             <div class="layui-card-body">
+                                            <div class="layui-row">
                                             <button class='layui-btn layui-btn-primary layui-btn-fluid'
                                             onclick="passIdtoFieldForstudentDetail('${doc.data().Summary_name}')">
                                                 ${doc.data().Summary_name}
                                             </button>
+                                            </div>
+                                            
                                             </div>
                                         </div>
                                     </div>
@@ -1605,6 +1608,7 @@ const submitChangehourBTN = document.getElementById('submitChangehourBTN')
 
 const adminEmailField = document.getElementById('adminEmailField')
 const studentEmailField = document.getElementById('studentEmailField')
+const facultyEmailField = document.getElementById('facultyEmailField')
 
 const addAdminBTN = document.getElementById('addAdminBTN')
 const deleteAdminBTN = document.getElementById('deleteAdminBTN')
@@ -1617,7 +1621,10 @@ function givebackHTML(list){
     return back.join('')
 }
 function setStudentEmailField(email){
-
+    studentEmailField.value = email
+}
+function setFacultyEmailField(email){
+    facultyEmailField.value = email
 }
 //admin
 auth.onAuthStateChanged(user =>{
@@ -1653,6 +1660,8 @@ auth.onAuthStateChanged(user =>{
             })
             adminEmailField.value = ''
         }
+
+        //Management admin tap
         admin
             .onSnapshot(doc=>{
                 const adminlist = doc.data().admin.map(
@@ -1671,7 +1680,7 @@ auth.onAuthStateChanged(user =>{
 
 
         const management = db.collection('management')
-
+        //Management change hour tap, show current hours cap.
         management
             .doc('hourCap')
             .onSnapshot(doc=>{
@@ -1708,7 +1717,7 @@ auth.onAuthStateChanged(user =>{
         }
 
 
-
+        //Management faculty tap
         faculty
             .onSnapshot(querySnapshot => {
                 const faculty = querySnapshot.docs.map(
@@ -1716,7 +1725,10 @@ auth.onAuthStateChanged(user =>{
                         console.log(doc.id)
                         return `<li class="layui-col-md12 animate__animated animate__fadeIn">
                                     <div class="layui-card">
-                                        <div class="layui-card-header ">Faculty: ${doc.id}</div>
+                                        <div class="layui-card-header layui-row">
+                                       Mentor:  <button class="layui-btn layui-btn-primary" onclick="setFacultyEmailField('${doc.id}')">
+                                        ${doc.id}</button>                                        
+                                        </div>
                                         <div class="layui-card-body">                                          
                                             ${givebackHTML(doc.data().student)}
                                         </div>
@@ -1726,6 +1738,7 @@ auth.onAuthStateChanged(user =>{
                 facultyTap.innerHTML = faculty.join('');
 
             })
+        //Management Student tap
         unsubscribe = STUDENT
             .where('summary','==',true)
             .onSnapshot(querySnapshot => {
@@ -1738,7 +1751,8 @@ auth.onAuthStateChanged(user =>{
                                 <div class="layui-row layui-col-space6">
                                     <div class="layui-col-md12">
                                         <div class="layui-card">
-                                            <buton class="layui-card-body layui-btn layui-btn-fluid">
+                                            <buton class="layui-card-body layui-btn layui-btn-fluid"
+                                            onclick="setStudentEmailField('${doc.data().useremail}')">
                                                 ${doc.data().Summary_name}
                                             </buton>
                                         </div>
@@ -1751,7 +1765,7 @@ auth.onAuthStateChanged(user =>{
                 document.getElementById('listofStudentSelect').innerHTML = history.join('');
 
             })
-
+        // overview
         unsubscribe = STUDENT
             .where('summary','==',true)
             .onSnapshot(querySnapshot => {

@@ -112,9 +112,9 @@
                 <li class="layui-nav-item">
                     <div class="layui-btn-container">
                         <a hidden="true" target="_blank"  href="https://console.firebase.google.com/u/3/project/combine2-2ae69/firestore/data~2Ffaculty~2Fgamingmaxor@gmail.com">Database</a>
-                        <button  id="showfacultyBtn" class="layui-btn  layui-btn-fluid">Management</button>
-                        <button  id="showStudentBtn" class="layui-btn  layui-btn-fluid">Overview</button>
-                        <button  id="changeMaxHour" class="layui-btn  layui-btn-fluid">Change Hours</button>
+                        <button  id="showfacultyBtn" class="layui-btn  layui-btn-fluid layui-btn-warm">Management</button>
+                        <button  id="showStudentBtn" class="layui-btn  layui-btn-fluid  layui-btn-warm">Overview</button>
+                        <button  id="changeMaxHour" class="layui-btn  layui-btn-fluid  layui-btn-warm">Change Hours</button>
                     </div>
                 </li>
 
@@ -125,13 +125,19 @@
                         </label>
                         <button id="addAdminBTN" class="layui-btn  layui-btn-fluid">Add Admin</button>
                         <button id="deleteAdminBTN" class="layui-btn  layui-btn-fluid">Delete Admin</button>
+                        <button class="layui-btn  layui-btn-fluid"></button>
 
+                        <button class="layui-btn  layui-btn-fluid " >Add</button>
                         <label>
                             <input id="studentEmailField" type="text" name="title"  autocomplete="on" lay-verify="email" placeholder="Student Email" class="layui-input" >
                         </label>
-                        <button class="layui-btn  layui-btn-fluid">Add Faculty</button>
-                        <button class="layui-btn  layui-btn-fluid"></button>
-                        <button class="layui-btn  layui-btn-fluid"></button>
+                        <button class="layui-btn  layui-btn-fluid">To</button>
+                        <label>
+                            <input id="facultyEmailField" type="text" name="title"  autocomplete="on" lay-verify="email" placeholder="Faculty Email" class="layui-input" >
+                        </label>
+                        <button id="AssignBTN" class="layui-btn  layui-btn-fluid">Assign</button>
+                        <button id="RemoveBTN" class="layui-btn  layui-btn-fluid">Remove</button>
+
                     </div>
                 </li>
 
