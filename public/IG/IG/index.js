@@ -1614,6 +1614,7 @@ const addAdminBTN = document.getElementById('addAdminBTN')
 const deleteAdminBTN = document.getElementById('deleteAdminBTN')
 const AssignBTN = document.getElementById('AssignBTN')
 const RemoveBTN = document.getElementById('RemoveBTN')
+const ClearAssignRemoveBTN = document.getElementById('ClearAssignRemoveBTN')
 const addfacultyBTN = document.getElementById('addfacultyBTN')
 const deletefacultyBTN = document.getElementById('deletefacultyBTN')
 const facultyCard = document.getElementById('facultyCard')
@@ -1714,7 +1715,7 @@ auth.onAuthStateChanged(user =>{
                 .update({
                     faculty: removeItem(adminEmailField.value.trim())
                 })
-            
+
             db.collection('faculty')
                 .doc(adminEmailField.value)
                 .delete()
@@ -1741,7 +1742,11 @@ auth.onAuthStateChanged(user =>{
                 })
 
         }
-
+        ClearAssignRemoveBTN.onclick=()=>{
+            studentEmailField.value=''
+            facultyEmailField.value=''
+            adminEmailField.value=''
+        }
 
 
         //Management admin tap
