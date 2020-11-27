@@ -226,7 +226,7 @@ function whichempty(){
             datelabel.innerHTML.fontcolor('red')
             break
         case false:
-            datelabel.innerHTML.fontcolor('balck')
+            datelabel.innerHTML.fontcolor('black')
             break
     }
     switch (studentTextArea.value===''){
@@ -234,7 +234,7 @@ function whichempty(){
             datelabel.innerHTML.fontcolor('red')
             break
         case false:
-            datelabel.innerHTML.fontcolor('balck')
+            datelabel.innerHTML.fontcolor('black')
             break
     }
 
@@ -491,7 +491,7 @@ function clearField(){
     studentTextArea.value=''
     typeOfLearningHours.value=''
 }
-//Student
+//Students
 auth.onAuthStateChanged(user => {
     if(user){
         const collection = db.collection('STUDENT')
@@ -1612,6 +1612,11 @@ const facultyEmailField = document.getElementById('facultyEmailField')
 
 const addAdminBTN = document.getElementById('addAdminBTN')
 const deleteAdminBTN = document.getElementById('deleteAdminBTN')
+const AssignBTN = document.getElementById('AssignBTN')
+const RemoveBTN = document.getElementById('RemoveBTN')
+const addfacultyBTN = document.getElementById('addfacultyBTN')
+const deletefacultyBTN = document.getElementById('deletefacultyBTN')
+const facultyCard = document.getElementById('facultyCard')
 function givebackHTML(list){
     const back = list.map(
         doc=>{
@@ -1626,11 +1631,19 @@ function setStudentEmailField(email){
 function setFacultyEmailField(email){
     facultyEmailField.value = email
 }
+function addItemToArray(string){
+    return firebase.firestore.FieldValue.arrayUnion(string)
+}
+function removeItem(string){
+    return firebase.firestore.FieldValue.arrayRemove(string)
+}
 //admin
 auth.onAuthStateChanged(user =>{
     if(user){
         const admin = db.collection('management').doc('admin')
-
+        const STUDENT = db.collection('STUDENT')
+        const faculty = db.collection('faculty')
+        const management = db.collection('management')
         showfacultyBtn.onclick=()=>{
             tablehead.hidden = true
             facultyOverview.hidden=false
@@ -1647,6 +1660,9 @@ auth.onAuthStateChanged(user =>{
             ChangeMAX.hidden = false
         }
 
+
+
+
         //Add admin And delete admin
         addAdminBTN.onclick=()=>{
             admin.update({
@@ -1661,6 +1677,73 @@ auth.onAuthStateChanged(user =>{
             adminEmailField.value = ''
         }
 
+        //Add faculty and delete faculty
+        addfacultyBTN.onclick=()=>{
+            const fieldVal = adminEmailField.value
+
+            faculty
+                .doc(adminEmailField.value)
+                .get()
+                .then(doc=>{
+                    if(doc.exists){
+
+                    }
+                    else{
+
+                        db.collection('faculty')
+                            .doc(fieldVal)
+                            .set({
+                                'student': [],
+                            })
+                    }
+                    }
+                )
+
+            management
+                .doc('faculty')
+                .update({
+                    faculty: addItemToArray(adminEmailField.value.trim())
+                })
+
+            adminEmailField.value = ''
+        }
+
+        deletefacultyBTN.onclick=()=>{
+            management
+                .doc('faculty')
+                .update({
+                    faculty: removeItem(adminEmailField.value.trim())
+                })
+            
+            db.collection('faculty')
+                .doc(adminEmailField.value)
+                .delete()
+            adminEmailField.value = ''
+        }
+
+        //Add Student to faculty
+        AssignBTN.onclick=()=>{
+            const facultyEmail = facultyEmailField.value
+            const studentEmail = studentEmailField.value
+            faculty
+                .doc(facultyEmail)
+                .update({
+                    student: addItemToArray(studentEmail)
+                })
+        }
+        RemoveBTN.onclick=()=>{
+            const facultyEmail = facultyEmailField.value
+            const studentEmail = studentEmailField.value
+            faculty
+                .doc(facultyEmail)
+                .update({
+                    student: removeItem(studentEmail)
+                })
+
+        }
+
+
+
         //Management admin tap
         admin
             .onSnapshot(doc=>{
@@ -1672,14 +1755,22 @@ auth.onAuthStateChanged(user =>{
                 document.getElementById('admintap').innerHTML = adminlist.join('')
             })
 
+        //casting Management faculty access level
+        management
+            .doc('faculty')
+            .onSnapshot(doc=>{
+                const list = doc.data().faculty.map(
+                    ad=>{
+                        return `<p>${ad}</p>`
+                    }
+                )
+                facultyCard.innerHTML = list.join('')
+
+            })
 
 
 
-        const STUDENT = db.collection('STUDENT')
-        const faculty = db.collection('faculty')
 
-
-        const management = db.collection('management')
         //Management change hour tap, show current hours cap.
         management
             .doc('hourCap')
@@ -1749,12 +1840,17 @@ auth.onAuthStateChanged(user =>{
                          <div class="">
                             <div style="padding: 0px 15px 0px 15px;; background-color: #F2F2F2;">
                                 <div class="layui-row layui-col-space6">
-                                    <div class="layui-col-md12">
+                                    <div class="layui-col-md4">
                                         <div class="layui-card">
                                             <buton class="layui-card-body layui-btn layui-btn-fluid"
                                             onclick="setStudentEmailField('${doc.data().useremail}')">
                                                 ${doc.data().Summary_name}
                                             </buton>
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md8">
+                                        <div class="layui-card">
+                                        <div class="layui-card-body">${doc.data().useremail}</div>
                                         </div>
                                     </div>
                                 </div>
