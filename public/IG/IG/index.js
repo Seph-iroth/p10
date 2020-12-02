@@ -492,7 +492,6 @@ function clearField(){
     gain.checked=false
     valuethings.checked=false
     explore.checked=false
-    selectMentor.value=''
     studentTextArea.value=''
     typeOfLearningHours.value=''
 }
@@ -504,7 +503,12 @@ auth.onAuthStateChanged(user => {
         const student_summary = db.collection('student_summary')
 
         const { serverTimestamp } = firebase.firestore.FieldValue;
-
+        db.collection('student_summary')
+            .doc(user.email)
+            .get()
+            .then(doc=>{
+                selectMentor.value = doc.data().mentor
+            })
         getAdmin
             .then(doc =>{
                 const adminlist = doc.data().admin;
@@ -677,37 +681,32 @@ auth.onAuthStateChanged(user => {
         }
 
         submit.onclick=()=>{
-            collection.doc(user.email).update({
-                'summary': true,
+            db.collection('student_summary')
+                .doc(user.email)
+                .update({
                 'useremail': user.email,
                 'Summary_name': user.displayName,
-                'mentor': selectMentor.value.trim(),
                 'lastUpload': getDate()
             })
 
-            db.collection('student_summary')
-                .doc(user.email)
-                .get()
-                .then(doc=>{
-                    collection.add({
-                        name:user.displayName,
-                        uid: user.uid,
-                        date: datestudent.value,
-                        hours: parseInt(hoursInput.value),
-                        descriptionofActivity: description.value,
-                        TypeOfLearningHours:typeOfLearningHours.value,
-                        activityfullfilled:checkbox(),
-                        Reflect:studentTextArea.value,
-                        needApproval:needApproval(),
-                        uploadTime:getDate(),
-                        createdAt: serverTimestamp(),
-                        email:user.email,
 
-                        mentor:doc.data().mentor,
 
-                        stauts:stauts()
-                    })
-                })
+            collection.add({
+                name:user.displayName,
+                uid: user.uid,
+                date: datestudent.value,
+                hours: parseInt(hoursInput.value),
+                descriptionofActivity: description.value,
+                TypeOfLearningHours:typeOfLearningHours.value,
+                activityfullfilled:checkbox(),
+                Reflect:studentTextArea.value,
+                needApproval:needApproval(),
+                uploadTime:getDate(),
+                createdAt: serverTimestamp(),
+                email:user.email,
+                mentor:selectMentor.value.trim(),
+                stauts:stauts()
+            })
 
 
             clearField()
@@ -1166,6 +1165,10 @@ const indivualStudentWholeHistoryTap = document.getElementById('indivualStudentW
 const uidForStudentHistory = document.getElementById('uidForStudentHistory')
 const getStudentAllHistory = document.getElementById('getStudentAllHistory')
 const thatStudentHistoryList = document.getElementById('thatStudentHistoryList')
+const eventChangeRightTap = document.getElementById('eventChangeRightTap')
+const eventChangeRightSide = document.getElementById('eventChangeRightSide')
+
+
 function facultyCheck(){
     output = [];
     if(Gainchange.checked === true){
@@ -1209,6 +1212,9 @@ function passIdtoField(ids){
     console.log(ids)
     uidinput.value = ids
 }
+
+
+
 function passIdtoFieldForstudentDetail(name){
     console.log(name)
 
@@ -1255,6 +1261,87 @@ function passIdtoFieldForstudentDetail(name){
                 }
             )
             thatStudentHistoryList.innerHTML = history.join('');
+        })
+}
+
+function inputUID(uid){
+    facultyuidinput.value = uid
+    facultyclean()
+    db.collection('STUDENT').doc(uid)
+        .get()
+        .then((docSnapshot) => {
+            if (docSnapshot.exists) {
+                db.collection('STUDENT').doc(uid)
+                    .get()
+                    .then(
+                        doc=>{
+                            console.log("pull")
+                            datestudentChange.value = doc.data().date
+                            hoursInputChange.value = doc.data().hours
+                            selectMentorChange.value = doc.data().mentor
+                            descriptionchange.value = doc.data().descriptionofActivity
+                            typeOfLearningHoursChange.value = doc.data().TypeOfLearningHours
+                            facultystauts.value = doc.data().stauts
+                            if(doc.data().activityfullfilled.includes(0)){
+                                Gainchange.checked = true
+                            }
+                            if(doc.data().activityfullfilled.includes(1)){
+                                Valuechange.checked = true
+                            }
+                            if(doc.data().activityfullfilled.includes(2)){
+                                Explorechange.checked = true
+                            }
+                            studentTextAreaChange.value = doc.data().Reflect
+                        }
+                    )
+
+            }
+            else {
+                alert(uid+" does not exist")
+                console.log(uid+" does not exist")
+            }
+            console.log("pull")
+        });
+}
+function pullOutAlistOfEvent(name,ref){
+    db.collection('STUDENT')
+        .where('name','==',name)
+        .get()
+        .then(snap=>{
+            const history = snap.docs.map(
+                doc => {
+                    return `<li class = "layui-timeline-item animate__animated animate__fadeIn hoverover " style="padding-left: 10px;border-radius: 15px">
+                            <div class="layui-timeline-content layui-text" style="border-radius: 15px" onclick="inputUID('${doc.id}')">
+                                <div class="layui-timeline-title layui-row">
+                                        <div class="">
+                                              <h3 class="layui-timeline-title">${doc.data().uploadTime}</h3>
+                                        </div>                                        
+                                </div>
+                                <div class="layui-collapse">
+                                    <div class="layui-colla-item">
+                                        <div class="layui-colla-title layui-row">
+                                            <div class="layui-col-md3"><a onclick="inputUID('${doc.id}')">${doc.data().name}</a></div>
+                                            <div class="layui-col-md7">${doc.data().stauts}</div>
+                                        </div>
+                                        
+                                        <div class="layui-show" style="padding: 1rem">
+                                            <p>
+                                                Date on: ${doc.data().date}
+                                                <p style="font-size:140% ; border-radius: 10px ">Hours:${doc.data().hours}</p><br>
+                                                Description of Activity:   ${doc.data().descriptionofActivity}<br>
+                                                Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>               
+                                            </p>
+                                            <p style="color: #ff0000">
+                                            Reflect:${doc.data().Reflect}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`
+                }
+            )
+            ref.innerHTML = history.join('');
         })
 }
 //faculty
@@ -1308,6 +1395,31 @@ auth.onAuthStateChanged(user =>{
                 document.getElementById('facultyStudentTable2').innerHTML = history.join('');
             })
 
+        unsubscribe = student_summary
+            .where('mentor','==',user.email)
+            .onSnapshot(querySnapshot => {
+                const history = querySnapshot.docs.map(
+                    doc => {
+                        return `
+                         <div class="">
+                            <div style="padding: 2px 5px 2px 5px; background-color: #F2F2F2;">
+                                <div class="layui-row layui-col-space6">
+                                    <div>
+                                        <a class="layui-card" >
+                                            <div class="layui-card-body" onclick="pullOutAlistOfEvent('${doc.data().Summary_name}',eventChangeRightTap)">
+                                            <a style="cursor: pointer" onclick="pullOutAlistOfEvent('${doc.data().Summary_name}',eventChangeRightTap)">${doc.data().Summary_name}</a>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+
+                    });
+                eventChangeRightSide.innerHTML = history.join('')
+
+            })
         //overview in the faculty
         unsubscribe = student_summary
             .where('mentor','==',user.email)
@@ -1339,7 +1451,6 @@ auth.onAuthStateChanged(user =>{
 
                     });
                 facultyStudentOverviewTable.innerHTML = history.join('');
-
             })
     }
     else{
@@ -1577,7 +1688,7 @@ auth.onAuthStateChanged(user =>{
                                 <div class="layui-collapse">
                                     <div class="layui-colla-item">
                                         <div class="layui-row layui-colla-title layui-col-md12">
-                                            <div class="layui-col-md3"> <button style="width: 100%" class="layui-btn layui-btn-primary" onclick="passIdtoField('${doc.id}')">${doc.data().name}</button></div>
+                                            <div class="layui-col-md3"> <a style="width: 100%" class="layui-btn layui-btn-primary" onclick="passIdtoField('${doc.id}')">${doc.data().name}</a></div>
                                             <div class="layui-col-md3"></div>
                                             <div class="layui-col-md3"></div>
                                             <div class="layui-col-md3"></div>                                         
@@ -1588,7 +1699,7 @@ auth.onAuthStateChanged(user =>{
                                                 <p style="font-size:140% ; border-radius: 10px ">Hours:${doc.data().hours}</p><br>
                                                 Description of Activity:   ${doc.data().descriptionofActivity}<br>
                                                 Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
-                                                Fullfill:  ${getFulfill()}
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
                                             </p>
                                             <p style="color: red">
                                             Reflect:${doc.data().Reflect}

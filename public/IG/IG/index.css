@@ -2,14 +2,28 @@
 
 
 
-
+a{
+    cursor: pointer
+}
 
 
 html {
     scroll-behavior: smooth;
 }
 
-
+.scrollbar{
+    overflow: scroll;
+    overflow-x:hidden;
+}
+.scrollbar::-webkit-scrollbar{
+    width: 0.25rem;
+}
+.scrollbar::-webkit-scrollbar-track{
+    background: #ffffff;
+}
+.scrollbar::-webkit-scrollbar-thumb{
+    background: #009688;
+}
 
 .position {
     margin-left: auto;

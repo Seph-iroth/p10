@@ -584,7 +584,24 @@
     <!--内容主题区域 修改信息区 -->
     <div class = "layui-body animate__animated animate__zoomInRight" hidden='true' id="changestudentdata" style="padding: 10px"><!-- Approve area-->
         <div class="layui-row" style="margin-top: 4rem">
-            <div class="layui-col-md8">
+            <div class="layui-col-md1 layui-row" style="height: 750px;">
+                <div style="margin-top: 40px" class="">
+                    <div style="padding: 5px 5px 5px 5px; background-color: #f2f2f2;">
+                        <div class="layui-row layui-col-space6">
+                                <div class="layui-card ">
+                                    <div class="layui-card-body" >
+                                        Student
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div id="eventChangeRightSide" style="margin-top: 10px" class="scrollbar">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-col-md7">
                 <div class ="layui-col-md12 layui-bg-gray animate__animated animate__zoomInDown" style="padding: 5px">
                     <form class="layui-form " action="">
                         <div class="layui-form-item  order6 w3-animate-opacity w3-animate-right " style="margin-right: 5px;margin-left: 5px;margin-top: 2px">
@@ -721,6 +738,9 @@
                     });
                 </script>
             </div>
+            <div class="layui-col-md4 scrollbar" id="eventChangeRightTap" style="height: 750px">
+
+            </div>
         </div>
 
     </div>
@@ -790,7 +810,7 @@
 
             </div>
             <div class="layui-col-md8" >
-                <div id="thatStudentHistoryList" style="margin-top: 3rem">
+                <div id="thatStudentHistoryList" style="margin-top: 3rem;">
                 </div>
             </div>
         </div>
