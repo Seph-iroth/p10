@@ -64,13 +64,16 @@
                 <a class="layui-logo" href="">
                     <img src="Drewwhite.png"  alt="DREW" style="padding: 15px;height:100%;width: auto"/>
                 </a>
+
+
             </div>
+
         </div>
 
         <div class="layui-col-md12" style="padding: 20px;background-color:black;color: white" >
 
             <!--左侧不知道叫什么的东西，可添加图片，链接-->
-            <div class = "layui-col-md8">
+            <div class = "">
                 <div class="layui-card" style="height: 700px;background-color:black;color: white">
                     <div class="layui-card-header" align="center" style="background-color:black;color: white ">
                         Looking for opportunities?See below
@@ -110,26 +113,25 @@
 
             <link rel="stylesheet" type="text/css" href="/public/IG/IG/indexscss.scss">
             <!--右侧Google Sign In-->
-            <div class = "layui-col-md4" style="background-color:black;color: white">
+            <div hidden class = "layui-col-md4" style="background-color:black;color: white">
                 <div class = 'layui-card' style="height: 700px;background-color:black;color: white" >
                     <div class = "layui-card-header" align="center" style="background-color:black;color: white">
                         Sign In With GOOGLE Account
                     </div>
                     <div class = layui-card-body" align="center">
 
-                        <div class="middleA">
-                            <a class="btnA btn2A" id="signInBtn">
-                                Sign in with Google
-                                <img src="googlelogo.png" style="height: 35px;width: 35px">
-                            </a>
-                        </div>
+<!--                        <div class="middleA">-->
+<!--                            <a class="btnA btn2A" id="signInBtn">-->
+<!--                                <img src="googlelogo.png" style="height: 20px;width: auto;">-->
+<!--                            </a>-->
+<!--                        </div>-->
 
-                        <button class="glow-on-hover" type="button">RGB RING</button>
+                        <button class="glow-on-hover" type="button"><img src="googlelogo.png" style="height: 20px;width: auto;"></button>
                         <div class="svg-wrapper ">
                             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                                 <rect id="shape" height="40" width="150" />
                                 <div id="text">
-                                    <a href=""><span class="spot"></span>Button 1</a>
+                                    <a href=""><span class="spot"></span><img src="googlelogo.png" style="height: 20px;width: auto;"></a>
                                 </div>
                             </svg>
                         </div>
@@ -153,6 +155,29 @@
 
 
         </div>
+        <div class="layui-col-md12" style="padding: 20px;background-color:black;color: white" >
+            <div class="middleA ">
+                <a class="btnA btn4A " id="signInBtn">
+                    <img src="googlelogo.png" style="height: 20px;width: auto;">
+                </a>
+            </div>
+
+
+
+<!--            <div class="svg-wrapper middleA ">-->
+<!--                <svg height="50" width="900" xmlns="http://www.w3.org/2000/svg">-->
+<!--                    <rect id="shape" height="50" width="900" />-->
+<!--                    <div id="text">-->
+<!--                        <a href=""><span class="spot"></span><img src="googlelogo.png" style="height: 20px;width: auto;"></a>-->
+<!--                    </div>-->
+<!--                </svg>-->
+<!--            </div>-->
+
+
+
+
+        </div>
+
         <script src="/public/IG/IG/layui/layui.js" charset="UTF-8"></script>
         <script>
             layui.use(['element','carousel'],function () {
@@ -230,8 +255,8 @@
                     </div>
                 </li>
 
-                <li class="layui-nav-item" id="">
-                    <div class="layui-btn-container">
+                <li class="layui-nav-item animate__animated animate__fadeInUp">
+                    <div class="layui-btn-container animate__animated animate__fadeInLeft" id="managementAdminSidebar">
                         <label>
                             <input id="adminEmailField" type="text" name="title" lay-verify="email" autocomplete="off" placeholder="Email" class="layui-input">
                         </label>
@@ -264,7 +289,7 @@
     <!--内容主题区域 overall student-->
     <div id="tablehead" hidden="true" class = "layui-body animate__animated animate__slideInDown " style="margin-top: 45px;padding: 1rem"  >
 
-        <div style="margin-top: 40px" class="layui-col-md8">
+        <div style="margin-top: 40px;" class="layui-col-md8">
             <div >
                 <div style="padding: 0px 15px 0px 15px; background-color: #F2F2F2;">
                     <div class="layui-row layui-col-space6">
@@ -300,6 +325,9 @@
                 </div>
             </div>
             <div id="table"></div>
+        </div>
+        <div style="margin-top: 40px" class="layui-col-md4">
+            <div id="adminOverviewStudentAll" class=""></div>
         </div>
     </div>
     <!--内容主题区域 faculty student-->

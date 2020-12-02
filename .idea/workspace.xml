@@ -120,7 +120,9 @@
       <workItem from="1606142325595" duration="4483000" />
       <workItem from="1606321808793" duration="29312000" />
       <workItem from="1606407234420" duration="26459000" />
-      <workItem from="1606493051830" duration="12154000" />
+      <workItem from="1606493051830" duration="15210000" />
+      <workItem from="1606751163055" duration="4289000" />
+      <workItem from="1606842250411" duration="14574000" />
     </task>
     <servers />
   </component>
@@ -196,16 +198,17 @@
     </state>
     <state x="-883" y="754" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1410/-5280.-227.1707.960/2560.0.1707.960/-1440.-412.1440.2560@-1440.-412.1440.2560" timestamp="1606508546697" />
     <state x="991" y="642" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2560.-730.1707.940/-3840.-721.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605929023045" />
-    <state x="938" y="113" width="1623" height="1196" key="dock-window-1" timestamp="1606510034392">
-      <screen x="0" y="0" width="2560" height="1410" />
+    <state x="-1594" y="0" width="1601" height="1447" key="dock-window-1" timestamp="1606867128194">
+      <screen x="-2560" y="0" width="2560" height="1440" />
     </state>
     <state x="1273" y="0" width="1294" height="1417" key="dock-window-1/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605735483181" />
     <state x="1159" y="7" width="1316" height="1417" key="dock-window-1/-3840.-720.1707.947/2560.-730.1707.960/0.0.2560.1410@2560.-730.1707.960" timestamp="1605571071794" />
+    <state x="-1594" y="0" width="1601" height="1447" key="dock-window-1/0.0.2560.1410/-3367.1440.1707.960/2560.0.1707.960/-2560.0.2560.1440@0.0.2560.1410" timestamp="1606867128194" />
     <state x="1159" y="7" width="1316" height="1417" key="dock-window-1/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@0.0.2560.1410" timestamp="1605561491833" />
     <state x="664" y="191" width="1295" height="954" key="dock-window-1/0.0.2560.1410/-3840.-720.1707.960/2560.-730.1707.960@2560.-730.1707.960" timestamp="1604940515900" />
     <state x="1315" y="0" width="1252" height="1417" key="dock-window-1/0.0.2560.1410/-3840.-720.1707.960/2560.-730.960.1707@0.0.2560.1410" timestamp="1604678416879" />
-    <state x="938" y="113" width="1623" height="1196" key="dock-window-1/0.0.2560.1410/-5280.-227.1707.960/2560.0.1707.960/-1440.-412.1440.2560@-1440.-412.1440.2560" timestamp="1606510034392" />
-    <state x="785" y="105" width="1499" height="1446" key="dock-window-1/0.0.2560.1410/-5280.-227.1707.960/2560.0.1707.960/-1440.-412.1440.2560@0.0.2560.1410" timestamp="1606501377288" />
+    <state x="284" y="138" width="1922" height="1187" key="dock-window-1/0.0.2560.1410/-5280.-227.1707.960/2560.0.1707.960/-1440.-412.1440.2560@-1440.-412.1440.2560" timestamp="1606514151242" />
+    <state x="-1440" y="109" width="1456" height="620" maximized="true" key="dock-window-1/0.0.2560.1410/-5280.-227.1707.960/2560.0.1707.960/-1440.-412.1440.2560@0.0.2560.1410" timestamp="1606849203652" />
     <state x="1326" y="25" width="1205" height="1252" key="dock-window-1/0.0.2560.1410/2560.-720.1707.960@0.0.2560.1410" timestamp="1604431754739" />
     <state x="1181" y="43" width="1205" height="1252" key="dock-window-1/0.0.2560.1410/2560.0.1707.960@0.0.2560.1410" timestamp="1604439929090" />
     <state x="1273" y="0" width="1294" height="1417" key="dock-window-1/2560.-730.1707.940/-3840.-720.1707.960/0.0.2560.1410@0.0.2560.1410" timestamp="1605817480553" />

@@ -52,7 +52,6 @@ getOutbtn.onclick= () =>{
 auth.onAuthStateChanged(user => {
     if (user) {
         // signed in
-        const student = db.collection('management').doc('faculty')
 
         headbar.hidden=false
         document.getElementById('userImg').src=user.photoURL;
@@ -173,18 +172,12 @@ testthis = document.getElementById('testthis')
 
 
 function notempty(){
-    if(datestudent.value===''||
+    return !(datestudent.value === '' ||
         // hoursinput.value===''||
-        description.value===''||
-        typeOfLearningHours.value===''||
-        checkbox()===[]||
-        studentTextArea.value===''
-    ){
-        return false
-    }
-    else {
-        return true
-    }
+        description.value === '' ||
+        typeOfLearningHours.value === '' ||
+        checkbox() === [] ||
+        studentTextArea.value === '');
 }
 function whichempty(){
     datelabel = document.getElementById('datelabel')
@@ -242,10 +235,10 @@ function whichempty(){
 const studentTextArea = document.getElementById('studentTextArea')
 
 function getToday(){
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
     return today
 }
@@ -284,13 +277,13 @@ function needApproval(){
 
 }
 function getDate(){
-    var d = new Date();
-    var dd = d.getDate();
-    var mm = d.getMonth();
-    var yyyy = d.getFullYear()
-    var hour = d.getHours()
-    var min = d.getMinutes()
-    var sec = d.getSeconds()
+    let d = new Date();
+    let dd = d.getDate();
+    let mm = d.getMonth();
+    let yyyy = d.getFullYear()
+    let hour = d.getHours()
+    let min = d.getMinutes()
+    let sec = d.getSeconds()
     return yyyy+"-"+ mm+"-"+ dd+"-"+"     "+ hour+":"+min+":"+sec
 }
 function checkbox(){
@@ -331,6 +324,18 @@ function getFulfill(){
     ]
     for(i=0;i<check.length;i++){
         output.push(list[check[i]])
+    }
+    return output
+}
+function transferFulfill(array){
+    let output=[]
+    const list =[
+        "Gain confidence and skills to identify, define and tackle complex problems that impact communities and transcend borders",
+        "Value empathy, understanding and responsiveness to diverse others in their work and public roles.",
+        "Explore and take action on solutions to real-world problems that fulfill the goals of social impact, financial viability, and environmental sustainability"
+    ]
+    for(i=0;i<array.length;i++){
+        output.push(list[array[i]])
     }
     return output
 }
@@ -495,7 +500,11 @@ function clearField(){
 auth.onAuthStateChanged(user => {
     if(user){
         const collection = db.collection('STUDENT')
+
+        const student_summary = db.collection('student_summary')
+
         const { serverTimestamp } = firebase.firestore.FieldValue;
+
         getAdmin
             .then(doc =>{
                 const adminlist = doc.data().admin;
@@ -503,28 +512,38 @@ auth.onAuthStateChanged(user => {
                     .then(doc =>{
                         const facultylist = doc.data().faculty;
                         if(!adminlist.includes(user.email) && !facultylist.includes(user.email)){
-                            collection.doc(user.email).get()
+
+                            student_summary.doc(user.email).get()
                                 .then((docSnapshot) => {
                                     if (docSnapshot.exists) {
-                                        collection.doc(user.email).onSnapshot((doc) => {
+                                        student_summary.doc(user.email).onSnapshot((doc) => {
                                             console.log('exist')
                                             // do stuff with the data
                                         });
                                     }
-                                    else {
+                                    else{
+                                        // create a document
                                         console.log('Not exist')
-                                        collection.doc(user.email).set({
+
+                                        student_summary.doc(user.email).set({
+                                            'uid':user.uid,
+                                            'Active':0,
+                                            'Receptive':0,
+                                            'Required':0,
                                             'summary': true,
                                             'useremail': user.email,
                                             'Summary_name': user.displayName,
-                                            'lastUpload': getDate()
-                                        }) // create the document
+                                            'lastUpload': getDate(),
+                                            'mentor':""
+
+                                        })
                                     }
                                 });
                         }
                     })
 
             })
+
 
         db.collection('management')
             .doc('hourCap')
@@ -552,7 +571,7 @@ auth.onAuthStateChanged(user => {
 
                                 activedbar.style.width =(total/maxActive)*100 +"%"
                                 activedbar.innerHTML = Math.round((total/maxActive)*100) + "%"
-                                collection.doc(user.email).update(
+                                student_summary.doc(user.email).update(
                                     {
                                         Active: total,
                                     }
@@ -575,7 +594,7 @@ auth.onAuthStateChanged(user => {
 
                                 requiredbar.style.width =(total/maxReceptive)*100 +"%"
                                 requiredbar.innerHTML = Math.round((total/maxReceptive)*100) + "%"
-                                collection.doc(user.email).update(
+                                student_summary.doc(user.email).update(
                                     {
                                         Required : total
                                     }
@@ -596,7 +615,7 @@ auth.onAuthStateChanged(user => {
                                 }
                                 receptivebar.style.width = (total/maxRequired)*100 + "%"
                                 receptivebar.innerHTML = Math.round((total/maxRequired)*100) + "%"
-                                collection.doc(user.email).update(
+                                student_summary.doc(user.email).update(
                                     {
                                         Receptive: total
                                     }
@@ -613,7 +632,7 @@ auth.onAuthStateChanged(user => {
                 let maxReceptive = management.data().Receptive
                 let maxRequired = management.data().Required
                 let maxmax = management.data().Active+management.data().Receptive+ management.data().Required
-                collection
+                student_summary
                     .doc(user.email)
                     .onSnapshot(
                         doc=>{
@@ -637,7 +656,7 @@ auth.onAuthStateChanged(user => {
         db.collection('management')
             .doc('hourCap')
             .onSnapshot(management=>{
-                collection
+                student_summary
                     .doc(user.email)
                     .onSnapshot(function(doc) {
                         document.getElementById('detailmentor').innerHTML = doc.data().mentor
@@ -666,22 +685,31 @@ auth.onAuthStateChanged(user => {
                 'lastUpload': getDate()
             })
 
-            collection.add({
-                name:user.displayName,
-                uid: user.uid,
-                date: datestudent.value,
-                hours: parseInt(hoursInput.value),
-                descriptionofActivity: description.value,
-                TypeOfLearningHours:typeOfLearningHours.value,
-                activityfullfilled:checkbox(),
-                Reflect:studentTextArea.value,
-                needApproval:needApproval(),
-                uploadTime:getDate(),
-                createdAt: serverTimestamp(),
-                email:user.email,
-                mentor:selectMentor.value.trim(),
-                stauts:stauts()
-            })
+            db.collection('student_summary')
+                .doc(user.email)
+                .get()
+                .then(doc=>{
+                    collection.add({
+                        name:user.displayName,
+                        uid: user.uid,
+                        date: datestudent.value,
+                        hours: parseInt(hoursInput.value),
+                        descriptionofActivity: description.value,
+                        TypeOfLearningHours:typeOfLearningHours.value,
+                        activityfullfilled:checkbox(),
+                        Reflect:studentTextArea.value,
+                        needApproval:needApproval(),
+                        uploadTime:getDate(),
+                        createdAt: serverTimestamp(),
+                        email:user.email,
+
+                        mentor:doc.data().mentor,
+
+                        stauts:stauts()
+                    })
+                })
+
+
             clearField()
             //getCollectionLength(collection)
         }
@@ -782,6 +810,8 @@ auth.onAuthStateChanged(user => {
             showDetail();
             console.log('Detail')
         }
+
+        //Event history of student
         unsubscribe = collection
             .where('uid','==',user.uid)
             //.orderBy("createdAt", "desc")// Requires a query
@@ -814,7 +844,7 @@ auth.onAuthStateChanged(user => {
                                                 Description of Activity:   ${doc.data().descriptionofActivity}<br>
                                                 Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
                    
-                                                Fullfill:  ${getFulfill()}
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
                                             </p>
                                             <p style="color: #ff0000">
                                             Reflect:${doc.data().Reflect}
@@ -886,7 +916,7 @@ auth.onAuthStateChanged(user =>{
                                                 Description of Activity:   ${doc.data().descriptionofActivity}<br>
                                                 Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
                    
-                                                Fullfill:  ${getFulfill()}
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
                                             </p>
                                             <p style="color: #ff0000">
                                             Reflect:${doc.data().Reflect}
@@ -945,7 +975,7 @@ auth.onAuthStateChanged(user =>{
                                                 Description of Activity:   ${doc.data().descriptionofActivity}<br>
                                                 Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
 
-                                                Fullfill:  ${getFulfill()}
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
                                             </p>
                                             <p style="color: #ff0000">
                                             Reflect:${doc.data().Reflect}
@@ -1006,7 +1036,7 @@ auth.onAuthStateChanged(user =>{
                                                 Description of Activity:   ${doc.data().descriptionofActivity}<br>
                                                 Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
 
-                                                Fullfill:  ${getFulfill()}
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
                                             </p>
                                             <p style="color: #ff0000">
                                             Reflect:${doc.data().Reflect}
@@ -1067,7 +1097,7 @@ auth.onAuthStateChanged(user =>{
                                                 Description of Activity:   ${doc.data().descriptionofActivity}<br>
                                                 Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
 
-                                                Fullfill:  ${getFulfill()}
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
                                             </p>
                                             <p style="color: #ff0000">
                                             Reflect:${doc.data().Reflect}
@@ -1082,7 +1112,7 @@ auth.onAuthStateChanged(user =>{
                 defaultH.innerHTML = history4.join('')
 
             })
-            //.orderBy("createdAt", "desc");
+        //.orderBy("createdAt", "desc");
 
     }
     else{
@@ -1090,16 +1120,7 @@ auth.onAuthStateChanged(user =>{
 
     }
 })
-auth.onAuthStateChanged(user =>{
-    if(user){
-        const collection = db.collection('STUDENT')
 
-    }
-    else{
-        unsubscribe && unsubscribe();
-
-    }
-})
 const listOfstudent =document.getElementById('listOfstudent')
 const facultyStudent =document.getElementById('facultyStudent')
 const selectMentor = document.getElementById('selectMentor')
@@ -1221,7 +1242,7 @@ function passIdtoFieldForstudentDetail(name){
                                                 Description of Activity:   ${doc.data().descriptionofActivity}<br>
                                                 Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
                    
-                                                Fullfill:  ${getFulfill()}
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
                                             </p>
                                             <p style="color: #ff0000">
                                             Reflect:${doc.data().Reflect}
@@ -1240,9 +1261,9 @@ function passIdtoFieldForstudentDetail(name){
 auth.onAuthStateChanged(user =>{
     if(user){
         const STUDENT = db.collection('STUDENT')
-        unsubscribe = STUDENT
+        const student_summary = db.collection('student_summary')
+        unsubscribe = student_summary
             .where('mentor','==',user.email)
-            .where('summary','==',true)
             .onSnapshot(querySnapshot => {
                 const history = querySnapshot.docs.map(
                     doc => {
@@ -1287,9 +1308,9 @@ auth.onAuthStateChanged(user =>{
                 document.getElementById('facultyStudentTable2').innerHTML = history.join('');
             })
 
-        unsubscribe = STUDENT
+        //overview in the faculty
+        unsubscribe = student_summary
             .where('mentor','==',user.email)
-            .where('summary','==',true)
             .onSnapshot(querySnapshot => {
                 const history = querySnapshot.docs.map(
                     doc => {
@@ -1618,14 +1639,20 @@ const ClearAssignRemoveBTN = document.getElementById('ClearAssignRemoveBTN')
 const addfacultyBTN = document.getElementById('addfacultyBTN')
 const deletefacultyBTN = document.getElementById('deletefacultyBTN')
 const facultyCard = document.getElementById('facultyCard')
+const managementAdminSidebar = document.getElementById('managementAdminSidebar')
+
 function givebackHTML(list){
     const back = list.map(
         doc=>{
-            return `<p>${doc}</p>`
+            return `<div><a onclick="setStudentEmailField('${doc}')">${doc}</a></div>`
         }
     )
     return back.join('')
 }
+function setAdminEmailField(email){
+    adminEmailField.value = email
+}
+
 function setStudentEmailField(email){
     studentEmailField.value = email
 }
@@ -1638,6 +1665,51 @@ function addItemToArray(string){
 function removeItem(string){
     return firebase.firestore.FieldValue.arrayRemove(string)
 }
+function getStudentAll(name){
+    const STUDENT = db.collection('STUDENT')
+    STUDENT
+        .where('email','==',name)
+        .get()
+        .then(snap=>{
+            const history = snap.docs.map(
+                doc => {
+                    return `<li class = "layui-timeline-item animate__animated animate__fadeIn hoverover " style="padding-left: 2rem;border-radius: 15px">
+                            <div class="layui-timeline-content layui-text" style="border-radius: 15px">
+                                <div class="layui-timeline-title layui-row">
+                                        <div class="">
+                                              <h3 class="layui-timeline-title">${doc.data().uploadTime}</h3>
+                                        </div>                                        
+                                </div>
+                                <div class="layui-collapse">
+                                    <div class="layui-colla-item">
+                                        <div class="layui-colla-title layui-row">
+                                            <div class="layui-col-md3"></div>
+                                            <div class="layui-col-md3">${doc.data().stauts}</div>
+                                            <div class="layui-col-md2"></div>
+                                            <div class="layui-col-md4"></div>
+                                        </div>
+                                        
+                                        <div class="layui-show" style="padding: 1rem">
+                                            <p>
+                                                Date on: ${doc.data().date}
+                                                <p style="font-size:140% ; border-radius: 10px ">Hours:${doc.data().hours}</p><br>
+                                                Description of Activity:   ${doc.data().descriptionofActivity}<br>
+                                                Type Of LearningHours:   ${doc.data().TypeOfLearningHours}<br>
+                                                Fullfill:  ${transferFulfill(doc.data().activityfullfilled)}
+                                            </p>
+                                            <p style="color: #ff0000">
+                                            Reflect:${doc.data().Reflect}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`
+                }
+            )
+            document.getElementById('adminOverviewStudentAll').innerHTML = history.join('');
+        })
+}
 //admin
 auth.onAuthStateChanged(user =>{
     if(user){
@@ -1645,20 +1717,27 @@ auth.onAuthStateChanged(user =>{
         const STUDENT = db.collection('STUDENT')
         const faculty = db.collection('faculty')
         const management = db.collection('management')
+        const student_summary = db.collection('student_summary')
+
+
+
         showfacultyBtn.onclick=()=>{
             tablehead.hidden = true
             facultyOverview.hidden=false
             ChangeMAX.hidden = true
+            managementAdminSidebar.hidden = false
         }
         showStudentBtn.onclick=()=>{
             tablehead.hidden = false
             facultyOverview.hidden=true
             ChangeMAX.hidden = true
+            managementAdminSidebar.hidden = true
         }
         changeMaxHour.onclick=()=>{
             tablehead.hidden = true
             facultyOverview.hidden=true
             ChangeMAX.hidden = false
+            managementAdminSidebar.hidden = true
         }
 
 
@@ -1670,6 +1749,7 @@ auth.onAuthStateChanged(user =>{
                 admin: firebase.firestore.FieldValue.arrayUnion(adminEmailField.value.trim())
             })
             adminEmailField.value = ''
+
         }
         deleteAdminBTN.onclick=()=>{
             admin.update({
@@ -1731,6 +1811,12 @@ auth.onAuthStateChanged(user =>{
                 .update({
                     student: addItemToArray(studentEmail)
                 })
+            student_summary
+                .doc(studentEmail)
+                .update({
+                    mentor:facultyEmail
+                })
+
         }
         RemoveBTN.onclick=()=>{
             const facultyEmail = facultyEmailField.value
@@ -1739,6 +1825,11 @@ auth.onAuthStateChanged(user =>{
                 .doc(facultyEmail)
                 .update({
                     student: removeItem(studentEmail)
+                })
+            student_summary
+                .doc(studentEmail)
+                .update({
+                    mentor:''
                 })
 
         }
@@ -1754,7 +1845,7 @@ auth.onAuthStateChanged(user =>{
             .onSnapshot(doc=>{
                 const adminlist = doc.data().admin.map(
                     ad=>{
-                        return `<p>${ad}</p>`
+                        return `<div><a onclick="setAdminEmailField('${ad}')">${ad}</a></div>`
                     }
                 )
                 document.getElementById('admintap').innerHTML = adminlist.join('')
@@ -1766,7 +1857,7 @@ auth.onAuthStateChanged(user =>{
             .onSnapshot(doc=>{
                 const list = doc.data().faculty.map(
                     ad=>{
-                        return `<p>${ad}</p>`
+                        return `<div><a onclick="setAdminEmailField('${ad}')">${ad}</a></div>`
                     }
                 )
                 facultyCard.innerHTML = list.join('')
@@ -1822,10 +1913,10 @@ auth.onAuthStateChanged(user =>{
                         return `<li class="layui-col-md12 animate__animated animate__fadeIn">
                                     <div class="layui-card">
                                         <div class="layui-card-header layui-row">
-                                       Mentor:  <button class="layui-btn layui-btn-primary" onclick="setFacultyEmailField('${doc.id}')">
-                                        ${doc.id}</button>                                        
+                                       Mentor:  <a class="layui-btn layui-btn-primary" onclick="setFacultyEmailField('${doc.id}')">
+                                        ${doc.id}</a>                                        
                                         </div>
-                                        <div class="layui-card-body">                                          
+                                        <div class="layui-card-body">                                                                      
                                             ${givebackHTML(doc.data().student)}
                                         </div>
                                     </div>
@@ -1835,8 +1926,8 @@ auth.onAuthStateChanged(user =>{
 
             })
         //Management Student tap
-        unsubscribe = STUDENT
-            .where('summary','==',true)
+        unsubscribe = student_summary
+            //.where('summary','==',true)
             .onSnapshot(querySnapshot => {
                 // Map results to an array of li elements
                 const history = querySnapshot.docs.map(
@@ -1867,8 +1958,8 @@ auth.onAuthStateChanged(user =>{
 
             })
         // overview
-        unsubscribe = STUDENT
-            .where('summary','==',true)
+        unsubscribe = student_summary
+            //.where('summary','==',true)
             .onSnapshot(querySnapshot => {
                 // Map results to an array of li elements
                 const history = querySnapshot.docs.map(
@@ -1880,7 +1971,7 @@ auth.onAuthStateChanged(user =>{
                                     <div class="layui-col-md3">
                                         <div class="layui-card">
                                             <div class="layui-card-body">
-                                                ${doc.data().Summary_name}
+                                                <a onclick="getStudentAll('${doc.data().useremail}')">${doc.data().Summary_name}</a>                                                
                                             </div>
                                         </div>
                                     </div>
