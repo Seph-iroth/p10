@@ -7,8 +7,28 @@ a{
 }
 
 
+.numberInFaculty{
+    background-color: #009688;
+    color: white;
+    border-radius: 6px;
+}
+
 html {
     scroll-behavior: smooth;
+}
+
+.scrollbar_x{
+    overflow: scroll;
+    overflow-y:hidden;
+}
+.scrollbar_x::-webkit-scrollbar{
+    width: 0.25rem;
+}
+.scrollbar_x::-webkit-scrollbar-track{
+    background: #ffffff;
+}
+.scrollbar_x::-webkit-scrollbar-thumb{1
+    background: #009688;
 }
 
 .scrollbar{
@@ -476,7 +496,7 @@ make it thinner, then set it to again wrap around the entire parent element.
 
 
 .blueBGWhiteText{
-    background: #68b3ff;
+    background: #00b09f;
     color: white;
     font-weight: 700;
 }
@@ -599,6 +619,24 @@ body {
     transform: scale(1.05);
 }
 
+.hoveroverSmall {
+    transition: all .5s ease-in-out;
+}
+
+.hoveroverSmall:hover {
+    transform: scale(0.96);
+    background-color: #30775a;
+}
+.hoveroverNormal{
+    transition: all .2s ease-in-out;
+}
+
+.hoveroverNormal:hover {
+    transform: scale(0.98);
+    }
+
+
+
 @keyframes bigger{
 
 }
@@ -650,6 +688,25 @@ body {
 }
 .order6{
     animation-delay: 1400ms
+}
+
+.order1a{
+    animation-delay: 200ms
+}
+.order2a{
+    animation-delay: 300ms
+}
+.order3a{
+    animation-delay: 400ms
+}
+.order4a{
+    animation-delay: 500ms
+}
+.order5a{
+    animation-delay: 600ms
+}
+.order6a{
+    animation-delay: 700ms
 }
 
 

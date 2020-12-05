@@ -148,7 +148,38 @@
         </div>
     </div>
 
-
+    <div style="width: 300px; padding-top: 25px">
+        <div id="chart">ss</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        var options = {
+            series: [90, 10],
+            labels: ['Finished', 'Unfinished'],
+            chart: {
+                type: 'donut',
+                sparkline: {
+                    enabled: true,
+                }
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        labels: {
+                            show: true,
+                            total: {
+                                showAlways: false,
+                                show: true,
+                                label: 'Total'
+                            }
+                        }
+                    }
+                }
+            },
+        };
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
 
 
 
