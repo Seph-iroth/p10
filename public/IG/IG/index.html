@@ -54,7 +54,7 @@
     </div>
 </section><!--原本是 hidden="true"-->
 
-    <div class="container"   id="whenSignedOut" style="background: black"><!-- 原本无 hidden wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-->
+    <div class="container"   id="whenSignedOut" style="background: black; padding-left: 0"><!-- 原本无 hidden wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww-->
 <!--        <div class="center"  >-->
 <!--            <div class="wrap">-->
 <!--                <button id="signInBtn" class="button" >Sign in with Google</button>-->
@@ -159,7 +159,10 @@
         <div class="layui-col-md12" style="padding: 20px;background-color:black;color: white" >
             <div class="middleA ">
                 <a class="btnA btn4A " id="signInBtn">
-                    <img src="googlelogo.png" style="height: 20px;width: auto;">
+                    <div class="layui-row">
+                        <div> <img src="googlelogo.png" style="height: 20px;width: auto;">   LOGIN</div>
+                    </div>
+
                 </a>
             </div>
 
@@ -239,7 +242,7 @@
 
 
 
-<section hidden="true" id="adminLogin" class="layui-layout-body">
+<section hidden id="adminLogin" class="layui-layout-body">
 
     <!--侧边导航栏-->
     <div class = "layui-side layui-bg-gray animate__animated animate__slideInLeft order2" style="margin-top: 60px">
@@ -248,11 +251,11 @@
                 <li class="layui-nav-item">
                     <div class="layui-btn-container">
                         <a hidden="true" target="_blank"  href="https://console.firebase.google.com/u/3/project/combine2-2ae69/firestore/data~2Ffaculty~2Fgamingmaxor@gmail.com">Database</a>
-                        <button  id="showfacultyBtn" class="animate__animated animate__slideInRight order2a layui-btn  layui-btn-fluid layui-btn-warm">Management</button>
-                        <button  id="showStudentBtn" class="animate__animated animate__slideInRight order3a layui-btn  layui-btn-fluid  layui-btn-warm">Overview</button>
-                        <button  id="changeMaxHour" class="animate__animated animate__slideInRight order4a layui-btn  layui-btn-fluid  layui-btn-warm">Change Hours</button>
-                        <button  id="changeEVENT" class="animate__animated animate__slideInRight order5a layui-btn  layui-btn-fluid  layui-btn-warm">Change Event</button>
-                        <button  id="studentdetailBtn" class="animate__animated animate__slideInRight order6a layui-btn  layui-btn-fluid  layui-btn-warm">Student detail</button>
+                        <button  id="showfacultyBtn" class="animate__animated animate__slideInRight order2a layui-btn  layui-btn-fluid layui-btn-primary">Management</button>
+                        <button  id="showStudentBtn" class="animate__animated animate__slideInRight order3a layui-btn  layui-btn-fluid  layui-btn-primary">Overview</button>
+                        <button  id="changeMaxHour" class="animate__animated animate__slideInRight order4a layui-btn  layui-btn-fluid  layui-btn-primary">Change Hours</button>
+                        <button  id="changeEVENT" class="animate__animated animate__slideInRight order5a layui-btn  layui-btn-fluid  layui-btn-primary">Change Event</button>
+                        <button  id="studentdetailBtn" class="animate__animated animate__slideInRight order6a layui-btn  layui-btn-fluid  layui-btn-primary">Student detail</button>
                     </div>
                 </li>
 
@@ -824,7 +827,7 @@
 
 </section>
 
-<section  hidden="true" id="facultyLogin"  class="layui-layout-body"> <!--原本是 hidden="true"-->
+<section  hidden id="facultyLogin"  class="layui-layout-body"> <!--原本是 hidden="true"-->
     <!--侧边导航栏-->
     <div class = "layui-side layui-bg-gray animate__animated animate__slideInLeft order2"  style="margin-top: 60px">
         <div class = "layui-side-scroll">
@@ -1242,10 +1245,10 @@
 
 </section>
 
-<section hidden="true"  id="studentLogin" >
+<section hidden  id="studentLogin" >
     <div>
             <!--Progress bar-->
-            <div class="layui-row layui-col-space15 " style="padding-left: 3rem; padding-right: 3rem; align-items: center; ">
+            <div class="layui-row layui-col-space15 " style="padding-left: 2rem; padding-right: 3rem; align-items: center; ">
                 <!--row one-->
                 <div class="layui-col-md4"  id="row1" hidden="true"></div>
                 <div class="layui-col-md4" id="row2" hidden="true">
@@ -1256,40 +1259,43 @@
                 </div>
                 <div class="layui-col-md4" id="row3" hidden="true"></div>
                 <!--row two hours bar-->
-                <div class=" animate__animated animate__fadeInDown forHourbar1 layui-col-md4  ">
-                    <div class="layui-row">
-                        <div class = "">Required</div>
-                        <div style="background-color: #dedede;border-radius:12px">
-                            <div class="w3-deep-purple w3-center" style="height:24px; width:0% ;border-radius:12px" id='requiredbar'></div>
+
+                    <div class=" animate__animated animate__fadeInDown forHourbar1 layui-col-md4  ">
+                        <div class="layui-row">
+                            <div class = "">Required</div>
+                            <div style="background-color: #dedede;border-radius:12px">
+                                <div class="w3-deep-purple w3-center" style="height:24px; width:1% ;border-radius:12px" id='requiredbar'></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="animate__animated animate__fadeInDown forHourbar2 layui-col-md4  ">
-                    <div class="layui-row">
-                        <div class = "">Active</div>
-                        <div style="background-color: #dedede;border-radius:12px">
-                            <div class="w3-orange w3-center" style="height:24px; width:0% ;border-radius:12px" id='activedbar'></div>
+                    <div class="animate__animated animate__fadeInDown forHourbar2 layui-col-md4  ">
+                        <div class="layui-row">
+                            <div class = "">Active</div>
+                            <div style="background-color: #dedede;border-radius:12px">
+                                <div class="w3-orange w3-center" style="height:24px; width:1% ;border-radius:12px" id='activedbar'></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="animate__animated animate__fadeInDown forHourbar3 layui-col-md4  ">
-                    <div class="layui-row">
-                        <div class = "">Receptive</div>
-                        <div style="background-color: #dedede;border-radius:12px">
-                            <div class="w3-teal w3-center" style="height:24px; width:0% ;border-radius:12px" id='receptivebar'></div>
+                    <div class="animate__animated animate__fadeInDown forHourbar3 layui-col-md4  ">
+                        <div class="layui-row">
+                            <div class = "">Receptive</div>
+                            <div style="background-color: #dedede;border-radius:12px">
+                                <div class="w3-teal w3-center" style="height:24px; width:1% ;border-radius:12px" id='receptivebar'></div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+
 
             </div>
 
 
         <!--Event Submission-->
-        <div class="layui-row">
+        <div class="layui-row layui-col-space15" style="border-radius: 25px;padding-left: 2rem">
             <div class="layui-col-md8">
                 <fieldset class="layui-elem-field layui-field-title animate__animated animate__fadeInRightBig order5" style="margin-top: 5px;"><legend>Event Submission</legend></fieldset>
-                <div class ="layui-col-md12 layui-bg-gray animate__animated animate__zoomInDown" style="padding: 5px">
-                    <form class="layui-form " action="">
+                <div class ="layui-col-md12 layui-bg-gray animate__animated animate__zoomInDown" style="padding: 5px;">
+                    <form class="layui-form " action="" style="border-radius: 25px">
                         <div class="layui-form-item  order6 w3-animate-opacity w3-animate-right " style="margin-right: 5px;margin-left: 5px;margin-top: 2px">
                             <div class="layui-inline" style="margin-top: 10px">
                                 <label id="datelabel" class="layui-form-label" >Date</label>
@@ -1312,14 +1318,6 @@
                                 </div>
                             </div>
 
-                            <div class="layui-inline" >
-                                <label class="layui-form-label">Update uid</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="title" id="studentUpdate"   placeholder="20 digit uid" autocomplete="off" class="layui-input">
-                                </div>
-                                <button type="button" id="submitUpdate" class="layui-btn layui-btn-primary">Modify</button>
-                                <button type="button" id="submitdelete" class="layui-btn layui-btn-primary">Delete</button>
-                            </div>
 
 
                         </div>
@@ -1395,11 +1393,21 @@
                             </div>
                         </div>
 
-                        <div class="layui-col-md12 order1 w3-animate-opacity w3-animate-right" align="center">
+                        <div class="layui-inline layui-form-item" >
+                            <label class="layui-form-label">Update uid</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="title" id="studentUpdate"   placeholder="20 digit uid" autocomplete="off" class="layui-input">
+                            </div>
+                            <button type="button" id="submitUpdate" class="layui-btn layui-btn-primary">Modify</button>
+                            <button type="button" id="submitdelete" class="layui-btn layui-btn-primary">Delete</button>
+                        </div>
 
+                        <div class="layui-col-md12 order1 w3-animate-opacity w3-animate-right layui-col-space10" >
                             <div class="layui-col-md4 layui-col-lg-offset2">
-                                <input type="button" style="margin-right: 30%" align="right" class="layui-btn  layui-btn-normal layui-btn-fluid" value="Submit" id="studentSubmit">
-
+                                <input type="button" style="margin-right: 30%" align="right" class="layui-btn  layui-btn-warm layui-btn-fluid" value="Submit" id="studentSubmit">
+                            </div>
+                            <div class="layui-col-md1 layui-col-lg-offset2">
+                                <input type="button" style="margin-right: 30%" align="right" class="layui-btn  layui-btn-primary layui-btn-fluid" value="Clear" onclick="clearField()">
                             </div>
                             <div class="layui-col-md3">
                                 <a href="https://www.drew.edu" target="_blank">Looking for opportunities? Click Me!</a>
@@ -1431,7 +1439,7 @@
                             });
                         });
                     </script></div>
-                <div id = "detailsH"  class="animate__animated animate__slideInUp order3" style="padding: 1rem;">
+                <div id = "detailsH"  class="animate__animated animate__slideInUp order3" style=" padding-top: 2rem">
                     <div class="" style="background-color: #F2F2F2;">
                         <div style="padding: 10px 10px 10px 10px; background-color: #F2F2F2;" class="layui-col-md8">
                             <div class="layui-row layui-col-space6">

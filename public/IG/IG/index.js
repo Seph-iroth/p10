@@ -109,7 +109,7 @@ auth.onAuthStateChanged(function(user) {
         getAdmin
             .then(doc =>{
                 const adminlist = doc.data().admin;
-                showlist(adminlist);
+                //showlist(adminlist);
                 if(adminlist.includes(user.email)){
                     //window.location.assign('../IG/Admin/AdminHomePage.html')
                     //document.getElementById('goAdmin').hidden = false;
@@ -120,19 +120,23 @@ auth.onAuthStateChanged(function(user) {
                     .then(doc =>{
                         const facultylist = doc.data().faculty;
                         showlist(facultylist);
-                        if(facultylist.includes(user.email)){
+                        if(adminlist.includes(user.email)){
+                            //window.location.assign('../IG/Admin/AdminHomePage.html')
+                            //document.getElementById('goAdmin').hidden = false;
+                            adminLogin.hidden = false
+                            facultyOverview.hidden = false
+                        }
+                        else if(facultylist.includes(user.email)){
                             //window.location.assign('../IG/Faculty/FacultyHomePage.html')
                             //document.getElementById('goFaculty').hidden = false;
                             facultyLogin.hidden = false;
-
                             facultyOverview.hidden = true
-
                         }
-                        if(!adminlist.includes(user.email) && !facultylist.includes(user.email)){
+                        //(!adminlist.includes(user.email) && !facultylist.includes(user.email))
+                        else{
                             //window.location.assign('../IG/Student/StudentHomePage.html')
                             //document.getElementById('goStudent').hidden = false;
                             studentLogin.hidden = false;
-
                             facultyOverview.hidden = true
 
                         }
@@ -141,16 +145,10 @@ auth.onAuthStateChanged(function(user) {
             })
 
     } else {
-        document.getElementById('goAdmin').hidden = true;
-        document.getElementById('goFaculty').hidden = true;
-        document.getElementById('goStudent').hidden = true;
         studentLogin.hidden = true;
         facultyLogin.hidden = true;
         adminLogin.hidden = true
-        backstage.hidden = true;
-
         //document.getElementById('goAdmin').hidden = true;
-
     }
 });
 
@@ -447,10 +445,14 @@ function fillouttheblank(id){
         .get()
         .then(doc=>{
             console.log("pull")
+            studentUpdate.value = doc.id
             datestudent.value = doc.data().date
             hoursInput.value = doc.data().hours
+
             description.value = doc.data().descriptionofActivity
+
             typeOfLearningHours.value = doc.data().TypeOfLearningHours
+
             facultystauts.value = doc.data().stauts
             if(doc.data().activityfullfilled.includes(0)){
                 Gain.checked = true
@@ -587,39 +589,50 @@ auth.onAuthStateChanged(user => {
 
             })
 
-
+        // Get the max hour in firestore.
         db.collection('management')
             .doc('hourCap')
             .onSnapshot(management=>{
                 let maxActive = management.data().Active
                 let maxReceptive = management.data().Receptive
                 let maxRequired = management.data().Required
+                // Get into the document of that student. which is the one who log in,user.email.
                 collection
                     .doc(user.email)
                     .onSnapshot(function(doc) {
+
+                        //query all the submitted event that is active hour that is not requiring preapproval
                         collection
                             .where('uid','==',user.uid)
                             .where('TypeOfLearningHours','==','Active (not requiring preapproval)')
                             .onSnapshot(querySnapshot => {
                                 // Map results to an array of li elements
 
+                                //this one will create a list of hours, and put it into totalhours.
                                 const totalhours = querySnapshot.docs.map(
                                     doc => {
                                         return doc.data().hours
                                     });
+
+                                //then, use the for loop to get the sum of all hour.
                                 let total = 0
                                 for(i=0;i<totalhours.length;i++){
                                     total = totalhours[i] + total
                                 }
+                                //getting the current hour and the Max hour.
+                                //percentageCAP funthing returns a number in percentage but the max is 100, so the bar won't excess the limit
+                                activedbar.style.width = percentageCAP(total, maxActive) + "%"
+                                activedbar.innerHTML = percentage(total, maxActive) + "%"
 
-                                activedbar.style.width =(total/maxActive)*100 +"%"
-                                activedbar.innerHTML = Math.round((total/maxActive)*100) + "%"
+                                //last step, put the studnet total hour in to his or her summary document(database).
                                 student_summary.doc(user.email).update(
                                     {
                                         Active: total,
                                     }
                                 )
                             });
+
+                        //query all the submitted event that is active hour that is requiring preapproval, and being approved by mentor.
                         collection
                             .where('uid','==',user.uid)
                             .where('stauts','==','Approved')
@@ -635,14 +648,16 @@ auth.onAuthStateChanged(user => {
                                     total = totalhours[i] + total
                                 }
 
-                                requiredbar.style.width =(total/maxReceptive)*100 +"%"
-                                requiredbar.innerHTML = Math.round((total/maxReceptive)*100) + "%"
+                                requiredbar.style.width = percentageCAP(total, maxActive) + "%"
+                                requiredbar.innerHTML = percentage(total, maxActive) + "%"
                                 student_summary.doc(user.email).update(
                                     {
                                         Required : total
                                     }
                                 )
                             });
+
+                        //query all the submitted event that is active hour that is requiring Receptive
                         collection
                             .where('uid','==',user.uid)
                             .where('TypeOfLearningHours','==','Receptive')
@@ -656,8 +671,8 @@ auth.onAuthStateChanged(user => {
                                 for(i=0;i<totalhours.length;i++){
                                     total = totalhours[i] + total
                                 }
-                                receptivebar.style.width = (total/maxRequired)*100 + "%"
-                                receptivebar.innerHTML = Math.round((total/maxRequired)*100) + "%"
+                                receptivebar.style.width = percentageCAP(total, maxActive) + "%"
+                                receptivebar.innerHTML = percentage(total, maxActive) + "%"
                                 student_summary.doc(user.email).update(
                                     {
                                         Receptive: total
@@ -668,30 +683,30 @@ auth.onAuthStateChanged(user => {
             })
 
 
-        db.collection('management')
-            .doc('hourCap')
-            .onSnapshot(management=>{
-                // let maxActive = management.data().Active
-                // let maxReceptive = management.data().Receptive
-                // let maxRequired = management.data().Required
-                let maxmax = management.data().Active+management.data().Receptive+ management.data().Required
-                student_summary
-                    .doc(user.email)
-                    .onSnapshot(
-                        doc=>{
-                            if((doc.data().Active + doc.data().Receptive + doc.data().Required)>maxmax){
-                                row1.hidden = false
-                                row2.hidden = false
-                                row3.hidden = false
-                            }
-                            else{
-                                row1.hidden = true
-                                row2.hidden = true
-                                row3.hidden = true
-                            }
-                        }
-                    )
-            })
+        // db.collection('management')
+        //     .doc('hourCap')
+        //     .onSnapshot(management=>{
+        //         // let maxActive = management.data().Active
+        //         // let maxReceptive = management.data().Receptive
+        //         // let maxRequired = management.data().Required
+        //         let maxmax = management.data().Active+management.data().Receptive+ management.data().Required
+        //         student_summary
+        //             .doc(user.email)
+        //             .onSnapshot(
+        //                 doc=>{
+        //                     if((doc.data().Active + doc.data().Receptive + doc.data().Required)>maxmax){
+        //                         row1.hidden = false
+        //                         row2.hidden = false
+        //                         row3.hidden = false
+        //                     }
+        //                     else{
+        //                         row1.hidden = true
+        //                         row2.hidden = true
+        //                         row3.hidden = true
+        //                     }
+        //                 }
+        //             )
+        //     })
 
 
 
@@ -701,7 +716,7 @@ auth.onAuthStateChanged(user => {
             .onSnapshot(management=>{
                 student_summary
                     .doc(user.email)
-                    .onSnapshot(function(doc) {
+                    .onSnapshot(doc=>{
                         document.getElementById('detailmentor').innerHTML = doc.data().mentor
                         document.getElementById('detailActive').innerHTML = doc.data().Active +'/'+ management.data().Active
                         document.getElementById('detailReceptive').innerHTML = doc.data().Receptive + '/'+management.data().Receptive
@@ -755,7 +770,7 @@ auth.onAuthStateChanged(user => {
             collection.doc(studentUpdate.value.trim()).get()
                 .then((docSnapshot) => {
                     if (docSnapshot.exists) {
-                        if (docSnapshot.data().stauts!=="Approved"){
+                        if (docSnapshot.data().stauts!=="Approved"||docSnapshot.data().stauts!=="Rejected"){
                             collection.doc(studentUpdate.value.trim()).update(
                                 {
                                     name:user.displayName,
@@ -1061,10 +1076,9 @@ auth.onAuthStateChanged(user =>{
                                 <div class="layui-collapse">
                                     <div class="layui-colla-item">
                                         <div class="layui-colla-title layui-row">
-                                            <div class="layui-col-md3">${doc.data().stauts}</div>
-                                            <div class="layui-col-md3"></div>
-                                            <div class="layui-col-md2"></div>
-                                            <div class="layui-col-md4">${doc.id}</div>
+                                            <div class="layui-col-md6">${doc.data().stauts}</div>
+                                            <div class="layui-col-md1"></div>
+                                            <div class="layui-col-md4" style="font-size:5px">${doc.id}</div>
                                         </div>
 
                                         <div class="layui-show" style="padding: 1rem">
@@ -2025,8 +2039,6 @@ auth.onAuthStateChanged(user =>{
                     });
                 facultyStudentOverviewTable.innerHTML = history.join('');
             })
-
-
     }
     else{
         unsubscribe && unsubscribe();
@@ -2804,10 +2816,10 @@ auth.onAuthStateChanged(user =>{
                                 <div class="layui-row layui-col-space6">
                                     <div class="layui-col-md4">
                                         <div class="layui-card">
-                                            <buton class="layui-card-body layui-btn layui-btn-fluid"
+                                            <a class="layui-card-body layui-btn layui-btn-fluid"
                                             onclick="setStudentEmailField('${doc.data().useremail}')">
                                                 ${doc.data().Summary_name}
-                                            </buton>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="layui-col-md8">
