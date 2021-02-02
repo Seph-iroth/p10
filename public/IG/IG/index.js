@@ -91,7 +91,7 @@ let unsubscribe; // turn off realtime stream
 
 
 const db = firebase.firestore()
-management = db.collection('management')
+const management = db.collection('management')
 const getAdmin = management.doc('admin').get()
 const getfaculty = management.doc('faculty').get()
 const getlist = db.collection('db').doc('list').get()
@@ -115,6 +115,7 @@ auth.onAuthStateChanged(function(user) {
                     //document.getElementById('goAdmin').hidden = false;
                     adminLogin.hidden = false
                     facultyOverview.hidden = false
+                    db.collection('student_summary').doc(user.email).delete()
                 }
                 getfaculty
                     .then(doc =>{
@@ -125,6 +126,7 @@ auth.onAuthStateChanged(function(user) {
                             //document.getElementById('goAdmin').hidden = false;
                             adminLogin.hidden = false
                             facultyOverview.hidden = false
+                            db.collection('student_summary').doc(user.email).delete()
                         }
                         else if(facultylist.includes(user.email)){
                             //window.location.assign('../IG/Faculty/FacultyHomePage.html')
@@ -510,7 +512,7 @@ auth.onAuthStateChanged(user => {
             .orderBy('createdAt') // Requires a query
             .onSnapshot(querySnapshot => {
                 // Map results to an array of li elements
-                const items = querySnapshot.docs.map( //querySnapshot是array中的一个 会一个个loop qss就是其中一个
+                const items = querySnapshot.docs.map( //querySnapshot will loop through all the doc in the firestore
                     function (doc) {
                         return `<li>${doc.data().hours}
                             ${doc.data().activity}
@@ -654,8 +656,7 @@ auth.onAuthStateChanged(user => {
                                     {
                                         Required : total
                                     }
-                                )
-                            });
+                                )                          });
 
                         //query all the submitted event that is active hour that is requiring Receptive
                         collection
@@ -833,30 +834,19 @@ auth.onAuthStateChanged(user => {
 
 
         Allhistory.onclick=()=>{
-            console.log('Allhistory')
             showAll();
-            console.log('Allhistory')
         }
         approvedHistory.onclick=()=>{
-            console.log('approvedHistory')
             showApproved();
-            console.log('approvedHistory')
-
         }
         rejectedHistory.onclick=()=>{
-            console.log('rejectedHistory')
             showRejected();
-            console.log('rejectedHistory')
         }
         pendingHistory.onclick=()=>{
-            console.log('pendingHistory')
             showPending();
-            console.log('pendingHistory')
         }
         DefaultHistory.onclick=()=>{
-            console.log('defaultH')
             showDefault();
-            console.log('defaultH')
         }
         // studentdetails.onclick=()=>{
         //     console.log('Detail')

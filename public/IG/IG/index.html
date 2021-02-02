@@ -558,7 +558,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div>  <!--Name list -->
             <div class="layui-col-md7">
                 <div class ="layui-col-md12 layui-bg-gray animate__animated animate__zoomInDown" style="padding: 5px">
                     <form class="layui-form " action="">
@@ -713,7 +713,7 @@
     <!--内容主题区域 Student detail -->
     <div class = "layui-body animate__animated animate__zoomInRight" hidden id="AdminStudentDetail" style="padding: 10px"><!-- Approve area-->
         <div class="layui-row" style="margin-top: 1rem">
-            <div class="layui-col-md1 layui-row" style="height: 750px;">
+            <div class="layui-col-md2 layui-row" style="height: 750px;">
                 <div style="margin-top: 40px" class="">
                     <div style="padding: 5px 5px 5px 5px; background-color: #f2f2f2;">
                         <div class="layui-row layui-col-space6">
@@ -730,7 +730,7 @@
                 </div>
 
             </div>
-            <div  class="layui-col-md8" id="adminStudentOverviewTable">
+            <div  class="layui-col-md7" id="adminStudentOverviewTable">
                 <div id="thatAdminStudentHistoryList" style="margin-top: 3rem; height: 800px" class="scrollbar">
                 </div>
             </div>
@@ -1134,7 +1134,7 @@
     <div id='studentdetail' hidden='true' class="layui-body animate__animated animate__slideInDown" style="margin-top: 30px" >
         <!-- Name title -->
         <div class="layui-row">
-            <div style="margin-top: 40px;height: 800px" class="layui-col-md1 scrollbar">
+            <div style="margin-top: 40px;height: 800px" class="layui-col-md3 scrollbar">
                 <div style="padding: 0px 15px 0px 15px; background-color: #f2f2f2;">
                     <div class="layui-row layui-col-space6">
                         <div class="layui-col-md12">
@@ -1152,7 +1152,7 @@
 
             </div>
 
-            <div class="layui-col-md8" >
+            <div class="layui-col-md6" >
                 <div id="thatStudentHistoryList" style="margin-top: 3rem; height: 800px" class="scrollbar">
                 </div>
             </div>
@@ -1515,16 +1515,18 @@
                         <fieldset class="layui-elem-field layui-field-title">
                             <legend class="animate__animated animate__fadeInRightBig order3">Event History</legend>
                         </fieldset>
-                        <ul class="layui-tab-title animate__animated animate__fadeIn">
-                            <li class="layui-this">
-                                <a value="All" type="button" id='Allhistory' class="layui-btn  layui-btn-primary layui-btn-fluid">All</a></li>
-                            <li><a  type="button" id='approvedHistory'  class="layui-btn  layui-btn-primary layui-btn-fluid">Approved</a> </li>
-                            <li><a  type="button" id='rejectedHistory' class="layui-btn  layui-btn-primary layui-btn-fluid">Rejected</a> </li>
-                            <li><a  type="button"  id='pendingHistory' class="layui-btn  layui-btn-primary layui-btn-fluid">Pending</a> </li>
-                            <li><a type="button"  id='DefaultHistory' class="layui-btn  layui-btn-primary layui-btn-fluid">Default</a> </li>
-<!--                            <li hidden><a  type="button"  id='studentdetails' class="layui-btn  layui-btn-primary layui-btn-fluid">Details</a> </li>-->
+                        <div class="layui-tab layui-tab-brief">
+                            <ul class="layui-tab-title animate__animated animate__fadeIn " style="padding: 10px">
+                                <li class="layui-this"><a value="All" type="button" id='Allhistory' class="">All</a></li>
+                                <li><a  id='approvedHistory'  class="">Approved</a> </li>
+                                <li><a   id='rejectedHistory' class="">Rejected</a> </li>
+                                <li><a   id='pendingHistory' class="">Pending</a> </li>
+                                <li><a  id='DefaultHistory' class="">Default</a> </li>
+                                <!--                            <li hidden><a  type="button"  id='studentdetails' class="layui-btn  layui-btn-primary layui-btn-fluid">Details</a> </li>-->
 
-                        </ul>
+                            </ul>
+                        </div>
+
                         <div class="scrollbar" style="height: 800px">
                             <ul id = "eventHistory" class="animate__animated animate__fadeIn" style="padding: 3rem">
 
